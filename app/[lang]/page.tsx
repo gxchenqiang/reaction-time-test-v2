@@ -1,5 +1,3 @@
-export const runtime = 'edge';
-
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { isValidLang, SUPPORTED_LANGS, LANG_HREFLANG, getLangPath, Lang } from "@/lib/i18n";
