@@ -96,10 +96,10 @@ export default function ContactPageContent({ lang }: ContactPageContentProps) {
           <p className="text-sm text-gray-600">
             Email:{" "}
             <a
-              href="mailto:hello@reactiontimetestonline.com"
+              href="mailto:admin@reactiontimetestonline.com"
               className="text-blue-600 hover:underline"
             >
-              hello@reactiontimetestonline.com
+              admin@reactiontimetestonline.com
             </a>
           </p>
         </div>
