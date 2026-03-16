@@ -226,10 +226,45 @@ export default function ResultsPanel({
       rounds,
       msLabel: t.ms,
     });
-    const link = document.createElement("a");
-    link.download = `reaction-time-${avg}ms.png`;
-    link.href = canvas.toDataURL("image/png");
-    link.click();
+
+    const filename = `reaction-time-${avg}ms.png`;
+    const isMobile = navigator.maxTouchPoints > 0;
+
+    if (isMobile) {
+      // On mobile: use Web Share API so users can "Save to Photos" on iOS/Android
+      canvas.toBlob(async (blob) => {
+        if (!blob) return;
+        const file = new File([blob], filename, { type: "image/png" });
+        if (
+          typeof navigator.share === "function" &&
+          typeof navigator.canShare === "function" &&
+          navigator.canShare({ files: [file] })
+        ) {
+          try {
+            await navigator.share({ files: [file] });
+            return;
+          } catch (err) {
+            // AbortError means user cancelled — no need to fallback
+            if ((err as Error).name === "AbortError") return;
+          }
+        }
+        // Mobile fallback if Web Share API unavailable
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.download = filename;
+        link.href = url;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, "image/png");
+    } else {
+      // Desktop: original behavior
+      const link = document.createElement("a");
+      link.download = filename;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
   };
 
   const percentileBar = Math.min(percentile, 99);
