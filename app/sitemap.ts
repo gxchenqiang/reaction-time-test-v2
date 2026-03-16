@@ -1,7 +1,7 @@
-export const runtime = 'edge';
-
 import { MetadataRoute } from "next";
 import { SUPPORTED_LANGS, getLangPath, Lang } from "@/lib/i18n";
+
+export const dynamic = "force-static";
 
 const BASE_URL = "https://reactiontimetestonline.com";
 
