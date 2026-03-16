@@ -1,5 +1,6 @@
 import { Lang, LANG_HREFLANG, getLangPath, SUPPORTED_LANGS } from "@/lib/i18n";
 import { t as getT } from "@/lib/translations";
+import { ADS_ENABLED } from "@/lib/config";
 import Header from "./Header";
 import Footer from "./Footer";
 import ReactionTest from "./ReactionTest";
@@ -39,7 +40,7 @@ export default function HomePageContent({ lang }: HomePageContentProps) {
         {/* Top ad banner */}
         <AdBanner slot="top" className="mb-8" />
 
-        <div className="flex gap-8">
+        <div className={ADS_ENABLED ? "flex gap-8" : ""}>
           {/* Main content */}
           <div className="flex-1 min-w-0">
             {/* Hero title */}
@@ -75,12 +76,14 @@ export default function HomePageContent({ lang }: HomePageContentProps) {
             <HomeSeoContent t={tr} />
           </div>
 
-          {/* Sidebar ad - desktop only */}
-          <aside className="hidden lg:block w-44 flex-shrink-0">
-            <div className="sticky top-24">
-              <AdBanner slot="sidebar" />
-            </div>
-          </aside>
+          {/* Sidebar ad - desktop only, only rendered when ads are enabled */}
+          {ADS_ENABLED && (
+            <aside className="hidden lg:block w-44 flex-shrink-0">
+              <div className="sticky top-24">
+                <AdBanner slot="sidebar" />
+              </div>
+            </aside>
+          )}
         </div>
       </main>
 

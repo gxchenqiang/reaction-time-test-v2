@@ -1,7 +1,6 @@
 "use client";
 
-// Ad placement component - replace inner content with actual Google AdSense code
-// when ready to monetize. Currently shows a placeholder.
+import { ADS_ENABLED } from "@/lib/config";
 
 interface AdBannerProps {
   slot: "top" | "bottom" | "sidebar";
@@ -15,15 +14,12 @@ const AD_SIZES: Record<AdBannerProps["slot"], { label: string; height: string }>
 };
 
 export default function AdBanner({ slot, className = "" }: AdBannerProps) {
-  // In production, replace this div with your Google AdSense <ins> tag
-  // Example:
-  // <ins className="adsbygoogle" ... data-ad-slot="XXXXXXXX" />
-
-  if (process.env.NODE_ENV === "production") {
-    // Return null or actual AdSense code in production
-    // For now, returns null to avoid showing placeholder on live site
+  if (!ADS_ENABLED) {
     return null;
   }
+
+  // TODO: 接入 Google AdSense 时，将下方占位符替换为实际的 <ins> 标签：
+  // <ins className="adsbygoogle" ... data-ad-slot="XXXXXXXX" />
 
   const { label, height } = AD_SIZES[slot];
 
