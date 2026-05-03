@@ -26,5 +26,6 @@ export const LANG_HREFLANG: Record<Lang, string> = {
 
 export function getLangPath(lang: Lang, path: string = ""): string {
   const base = lang === DEFAULT_LANG ? "" : `/${lang}`;
-  return `${base}${path || "/"}`;
+  if (!path) return base || "/";
+  return `${base}${path}`;
 }

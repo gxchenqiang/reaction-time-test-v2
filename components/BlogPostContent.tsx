@@ -1,10 +1,18 @@
 import Link from "next/link";
 import { Lang, getLangPath } from "@/lib/i18n";
+import {
+  BASE_URL,
+  SITE_LOGO_URL,
+  canonicalUrl,
+  inLanguage,
+  organizationJsonLd,
+} from "@/lib/seo";
 import { t as getT } from "@/lib/translations";
 import { BlogPost, BlogSection } from "@/lib/blogPosts";
 import Header from "./Header";
 import Footer from "./Footer";
 import AdBanner from "./AdBanner";
+import JsonLd from "./JsonLd";
 
 interface BlogPostContentProps {
   post: BlogPost;
@@ -75,9 +83,59 @@ function renderSection(section: BlogSection, i: number) {
 export default function BlogPostContent({ post, lang }: BlogPostContentProps) {
   const tr = getT(lang);
   const blogPath = getLangPath(lang, "/blog");
+  const pageUrl = canonicalUrl("en", `/blog/${post.slug}`);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationJsonLd(),
+      {
+        "@type": "BlogPosting",
+        "@id": `${pageUrl}#article`,
+        headline: post.title,
+        description: post.excerpt,
+        datePublished: post.date,
+        dateModified: post.date,
+        image: SITE_LOGO_URL,
+        mainEntityOfPage: pageUrl,
+        url: pageUrl,
+        inLanguage: inLanguage("en"),
+        author: {
+          "@id": `${BASE_URL}/#organization`,
+        },
+        publisher: {
+          "@id": `${BASE_URL}/#organization`,
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: tr.navHome,
+            item: canonicalUrl("en"),
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: tr.navBlog,
+            item: canonicalUrl("en", "/blog"),
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: post.title,
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Header t={tr} lang={lang} currentPath="/blog" />
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10">

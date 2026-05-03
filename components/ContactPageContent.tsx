@@ -2,18 +2,100 @@
 
 import { useState } from "react";
 import { Lang } from "@/lib/i18n";
+import {
+  BASE_URL,
+  canonicalUrl,
+  inLanguage,
+  organizationJsonLd,
+} from "@/lib/seo";
 import { t as getT } from "@/lib/translations";
 import Header from "./Header";
 import Footer from "./Footer";
+import JsonLd from "./JsonLd";
 
 interface ContactPageContentProps {
   lang: Lang;
 }
 
+const CONTACT_EMAIL = "support@reactiontimetestonline.com";
+
+const CONTACT_COPY: Record<
+  Lang,
+  {
+    otherWaysTitle: string;
+    emailLabel: string;
+  }
+> = {
+  en: {
+    otherWaysTitle: "Other ways to reach us",
+    emailLabel: "Email",
+  },
+  zh: {
+    otherWaysTitle: "其他联系方式",
+    emailLabel: "邮箱",
+  },
+  ko: {
+    otherWaysTitle: "다른 연락 방법",
+    emailLabel: "이메일",
+  },
+  ja: {
+    otherWaysTitle: "その他の連絡方法",
+    emailLabel: "メール",
+  },
+  de: {
+    otherWaysTitle: "Weitere Kontaktmöglichkeiten",
+    emailLabel: "E-Mail",
+  },
+  fr: {
+    otherWaysTitle: "Autres moyens de nous contacter",
+    emailLabel: "E-mail",
+  },
+};
+
 export default function ContactPageContent({ lang }: ContactPageContentProps) {
   const tr = getT(lang);
+  const copy = CONTACT_COPY[lang];
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const pageUrl = canonicalUrl(lang, "/contact");
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationJsonLd(),
+      {
+        "@type": "ContactPage",
+        "@id": `${pageUrl}#contact`,
+        name: tr.contactTitle,
+        description: tr.contactDescription,
+        url: pageUrl,
+        inLanguage: inLanguage(lang),
+        isPartOf: {
+          "@id": `${BASE_URL}/#website`,
+        },
+        about: {
+          "@id": `${BASE_URL}/#organization`,
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: tr.navHome,
+            item: canonicalUrl(lang),
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: tr.navContact,
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +105,7 @@ export default function ContactPageContent({ lang }: ContactPageContentProps) {
 
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Header t={tr} lang={lang} currentPath="/contact" />
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 py-10">
@@ -92,14 +175,16 @@ export default function ContactPageContent({ lang }: ContactPageContentProps) {
         </div>
 
         <div className="mt-8 bg-blue-50 rounded-2xl p-6">
-          <h2 className="font-bold text-gray-800 mb-2">Other ways to reach us</h2>
+          <h2 className="font-bold text-gray-800 mb-2">
+            {copy.otherWaysTitle}
+          </h2>
           <p className="text-sm text-gray-600">
-            Email:{" "}
+            {copy.emailLabel}:{" "}
             <a
-              href="mailto:support@reactiontimetestonline.com"
+              href={`mailto:${CONTACT_EMAIL}`}
               className="text-blue-600 hover:underline"
             >
-              support@reactiontimetestonline.com
+              {CONTACT_EMAIL}
             </a>
           </p>
         </div>

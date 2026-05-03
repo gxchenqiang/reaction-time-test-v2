@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/fix-exported-html-lang.mjs",
     "start": "next start",
     "lint": "next lint",
     "cf:preview": "wrangler pages dev out"

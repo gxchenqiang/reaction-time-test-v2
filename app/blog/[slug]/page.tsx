@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { BLOG_POSTS, getPostBySlug } from "@/lib/blogPosts";
+import { canonicalUrl } from "@/lib/seo";
 import BlogPostContent from "@/components/BlogPostContent";
 
 interface Props {
@@ -19,7 +20,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${post.title} – Reaction Time Test`,
     description: post.excerpt,
     alternates: {
-      canonical: `https://reactiontimetestonline.com/blog/${slug}`,
+      canonical: canonicalUrl("en", `/blog/${slug}`),
+    },
+    openGraph: {
+      type: "article",
+      title: `${post.title} – Reaction Time Test`,
+      description: post.excerpt,
+      url: canonicalUrl("en", `/blog/${slug}`),
+      publishedTime: post.date,
     },
   };
 }

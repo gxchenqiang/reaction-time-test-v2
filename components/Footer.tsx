@@ -7,8 +7,49 @@ interface FooterProps {
   lang: Lang;
 }
 
+const FOOTER_COPY: Record<
+  Lang,
+  {
+    navigation: string;
+    languages: string;
+    privacy: string;
+  }
+> = {
+  en: {
+    navigation: "Navigation",
+    languages: "Languages",
+    privacy: "Privacy",
+  },
+  zh: {
+    navigation: "导航",
+    languages: "语言",
+    privacy: "隐私",
+  },
+  ko: {
+    navigation: "탐색",
+    languages: "언어",
+    privacy: "개인정보",
+  },
+  ja: {
+    navigation: "ナビゲーション",
+    languages: "言語",
+    privacy: "プライバシー",
+  },
+  de: {
+    navigation: "Navigation",
+    languages: "Sprachen",
+    privacy: "Datenschutz",
+  },
+  fr: {
+    navigation: "Navigation",
+    languages: "Langues",
+    privacy: "Confidentialité",
+  },
+};
+
 export default function Footer({ t, lang }: FooterProps) {
   const year = new Date().getFullYear();
+  const copy = FOOTER_COPY[lang];
 
   return (
     <footer className="bg-gray-50 border-t border-gray-100 mt-16">
@@ -25,12 +66,12 @@ export default function Footer({ t, lang }: FooterProps) {
           {/* Navigation */}
           <div>
             <p className="font-semibold text-gray-600 text-sm uppercase tracking-wide mb-3">
-              Navigation
+              {copy.navigation}
             </p>
             <ul className="space-y-2">
               {[
                 { href: getLangPath(lang, ""), label: t.navHome },
-                { href: getLangPath(lang, "/blog"), label: t.navBlog },
+                { href: getLangPath("en", "/blog"), label: t.navBlog },
                 { href: getLangPath(lang, "/about"), label: t.navAbout },
                 { href: getLangPath(lang, "/contact"), label: t.navContact },
               ].map((link) => (
@@ -49,7 +90,7 @@ export default function Footer({ t, lang }: FooterProps) {
           {/* Languages */}
           <div>
             <p className="font-semibold text-gray-600 text-sm uppercase tracking-wide mb-3">
-              Languages
+              {copy.languages}
             </p>
             <ul className="space-y-2">
               {SUPPORTED_LANGS.map((l) => (
@@ -76,10 +117,10 @@ export default function Footer({ t, lang }: FooterProps) {
           </p>
           <div className="flex gap-4 text-xs text-gray-400">
             <Link href={getLangPath(lang, "/about")} className="hover:text-gray-600 transition-colors">
-              Privacy
+              {copy.privacy}
             </Link>
             <Link href={getLangPath(lang, "/contact")} className="hover:text-gray-600 transition-colors">
-              Contact
+              {t.navContact}
             </Link>
           </div>
         </div>

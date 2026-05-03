@@ -17,10 +17,11 @@ export default function Header({ t, lang, currentPath = "" }: HeaderProps) {
 
   const navLinks = [
     { href: getLangPath(lang, ""), label: t.navHome },
-    { href: getLangPath(lang, "/blog"), label: t.navBlog },
+    { href: getLangPath("en", "/blog"), label: t.navBlog },
     { href: getLangPath(lang, "/about"), label: t.navAbout },
     { href: getLangPath(lang, "/contact"), label: t.navContact },
   ];
+  const languageSwitchPath = currentPath.startsWith("/blog") ? "" : currentPath;
 
   const isActive = (href: string) => {
     const normalized = href === "/" ? "" : href;
@@ -80,7 +81,7 @@ export default function Header({ t, lang, currentPath = "" }: HeaderProps) {
                   {SUPPORTED_LANGS.map((l) => (
                     <Link
                       key={l}
-                      href={getLangPath(l, currentPath)}
+                      href={getLangPath(l, languageSwitchPath)}
                       onClick={() => setLangOpen(false)}
                       className={`flex items-center justify-between px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors ${
                         l === lang

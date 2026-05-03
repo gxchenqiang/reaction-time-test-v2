@@ -1,7 +1,7 @@
 
 import type { Metadata } from "next";
 import { t as getT } from "@/lib/translations";
-import { LANG_HREFLANG, SUPPORTED_LANGS, getLangPath } from "@/lib/i18n";
+import { canonicalUrl, languageAlternates } from "@/lib/seo";
 import HomePageContent from "@/components/HomePageContent";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -10,18 +10,13 @@ export async function generateMetadata(): Promise<Metadata> {
     title: tr.siteTitle,
     description: tr.siteDescription,
     alternates: {
-      canonical: "https://reactiontimetestonline.com/",
-      languages: Object.fromEntries(
-        SUPPORTED_LANGS.map((l) => [
-          LANG_HREFLANG[l],
-          `https://reactiontimetestonline.com${getLangPath(l, "")}`,
-        ])
-      ),
+      canonical: canonicalUrl("en"),
+      languages: languageAlternates(),
     },
     openGraph: {
       title: tr.siteTitle,
       description: tr.siteDescription,
-      url: "https://reactiontimetestonline.com/",
+      url: canonicalUrl("en"),
       locale: "en_US",
     },
   };

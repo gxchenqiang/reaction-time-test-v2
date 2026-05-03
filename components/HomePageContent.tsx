@@ -1,12 +1,19 @@
-import { Lang, LANG_HREFLANG, getLangPath, SUPPORTED_LANGS } from "@/lib/i18n";
+import { Lang } from "@/lib/i18n";
 import { t as getT } from "@/lib/translations";
 import { ADS_ENABLED } from "@/lib/config";
+import {
+  BASE_URL,
+  canonicalUrl,
+  inLanguage,
+  organizationJsonLd,
+} from "@/lib/seo";
 import Header from "./Header";
 import Footer from "./Footer";
 import ReactionTest from "./ReactionTest";
 import FunFacts from "./FunFacts";
 import AdBanner from "./AdBanner";
 import HomeSeoContent from "./HomeSeoContent";
+import JsonLd from "./JsonLd";
 
 interface HomePageContentProps {
   lang: Lang;
@@ -14,29 +21,59 @@ interface HomePageContentProps {
 
 export default function HomePageContent({ lang }: HomePageContentProps) {
   const tr = getT(lang);
+  const pageUrl = canonicalUrl(lang);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationJsonLd(),
+      {
+        "@type": "WebSite",
+        "@id": `${BASE_URL}/#website`,
+        name: "Reaction Time Test Online",
+        url: BASE_URL,
+        inLanguage: inLanguage(lang),
+      },
+      {
+        "@type": "WebApplication",
+        "@id": `${pageUrl}#reaction-time-test`,
+        name: tr.siteTitle,
+        description: tr.siteDescription,
+        url: pageUrl,
+        applicationCategory: "UtilitiesApplication",
+        operatingSystem: "Any",
+        isAccessibleForFree: true,
+        inLanguage: inLanguage(lang),
+        publisher: {
+          "@id": `${BASE_URL}/#organization`,
+        },
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#faq`,
+        inLanguage: inLanguage(lang),
+        mainEntity: tr.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.a,
+          },
+        })),
+      },
+    ],
+  };
 
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Header t={tr} lang={lang} currentPath="" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-        {/* hreflang links rendered as hidden elements for SEO */}
-        <div className="hidden" aria-hidden="true">
-          {SUPPORTED_LANGS.map((l) => (
-            <link
-              key={l}
-              rel="alternate"
-              hrefLang={LANG_HREFLANG[l]}
-              href={`https://reactiontimetestonline.com${getLangPath(l, "")}`}
-            />
-          ))}
-          <link
-            rel="alternate"
-            hrefLang="x-default"
-            href="https://reactiontimetestonline.com/"
-          />
-        </div>
-
         {/* Top ad banner */}
         <AdBanner slot="top" className="mb-8" />
 

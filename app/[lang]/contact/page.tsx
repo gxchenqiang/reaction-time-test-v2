@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { isValidLang, SUPPORTED_LANGS, Lang, getLangPath, LANG_HREFLANG } from "@/lib/i18n";
+import { isValidLang, SUPPORTED_LANGS, Lang } from "@/lib/i18n";
+import { canonicalUrl, languageAlternates } from "@/lib/seo";
 import { t as getT } from "@/lib/translations";
 import ContactPageContent from "@/components/ContactPageContent";
 
@@ -21,13 +22,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: tr.contactTitle,
     description: tr.contactDescription,
     alternates: {
-      canonical: `https://reactiontimetestonline.com${getLangPath(lang, "/contact")}`,
-      languages: Object.fromEntries(
-        SUPPORTED_LANGS.map((l) => [
-          LANG_HREFLANG[l],
-          `https://reactiontimetestonline.com${getLangPath(l, "/contact")}`,
-        ])
-      ),
+      canonical: canonicalUrl(lang, "/contact"),
+      languages: languageAlternates("/contact"),
     },
   };
 }
