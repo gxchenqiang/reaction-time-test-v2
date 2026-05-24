@@ -145,7 +145,42 @@ export default function HomeSeoContent({ t }: HomeSeoContentProps) {
         </div>
       </section>
 
-      {/* Section 4: Tips */}
+      {/* Section 4: Long-tail use cases */}
+      <section className="bg-white rounded-2xl shadow-sm p-8">
+        <h2 className="text-xl font-bold text-gray-900 mb-3">
+          {t.longTailTitle}
+        </h2>
+        <p className="text-gray-500 text-sm leading-relaxed mb-6">
+          {t.longTailIntro}
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {t.longTailItems.map((item, i) => (
+            <div key={i} className="border border-gray-100 rounded-xl p-4">
+              <p className="font-semibold text-gray-800 mb-1">{item.title}</p>
+              <p className="text-gray-500 text-sm leading-relaxed">
+                {item.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Section 5: Accuracy and benchmarking */}
+      <section className="bg-white rounded-2xl shadow-sm p-8">
+        <h2 className="text-xl font-bold text-gray-900 mb-6">
+          {t.accuracyTitle}
+        </h2>
+        <ul className="space-y-3">
+          {t.accuracyItems.map((item, i) => (
+            <li key={i} className="flex items-start gap-3">
+              <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-gray-900" />
+              <p className="text-gray-600 leading-relaxed">{item}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Section 6: Tips */}
       <section className="bg-white rounded-2xl shadow-sm p-8">
         <h2 className="text-xl font-bold text-gray-900 mb-6">{t.tipsTitle}</h2>
         <ul className="space-y-3">
@@ -160,7 +195,7 @@ export default function HomeSeoContent({ t }: HomeSeoContentProps) {
         </ul>
       </section>
 
-      {/* Section 5: FAQ */}
+      {/* Section 7: FAQ */}
       <section className="bg-white rounded-2xl shadow-sm p-8">
         <h2 className="text-xl font-bold text-gray-900 mb-6">{t.faqTitle}</h2>
         <div className="space-y-2">

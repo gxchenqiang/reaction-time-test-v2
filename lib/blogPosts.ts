@@ -1,3 +1,6 @@
+import { DEFAULT_LANG, Lang } from "./i18n";
+import { BLOG_POST_TRANSLATIONS } from "./blogPostTranslations";
+
 export interface BlogSection {
   type: "paragraph" | "h2" | "h3" | "list" | "ordered-list" | "highlight";
   content?: string;
@@ -525,6 +528,23 @@ export const BLOG_POSTS: BlogPost[] = [
   },
 ];
 
-export function getPostBySlug(slug: string): BlogPost | undefined {
-  return BLOG_POSTS.find((p) => p.slug === slug);
+export function getBlogPosts(lang: Lang = DEFAULT_LANG): BlogPost[] {
+  if (lang === DEFAULT_LANG) return BLOG_POSTS;
+
+  const translations = BLOG_POST_TRANSLATIONS[lang];
+  return BLOG_POSTS.map((post) => ({
+    ...post,
+    ...(translations?.[post.slug] ?? {}),
+  }));
+}
+
+export function getBlogSlugs(): string[] {
+  return BLOG_POSTS.map((post) => post.slug);
+}
+
+export function getPostBySlug(
+  slug: string,
+  lang: Lang = DEFAULT_LANG
+): BlogPost | undefined {
+  return getBlogPosts(lang).find((p) => p.slug === slug);
 }

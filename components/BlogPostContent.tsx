@@ -83,7 +83,7 @@ function renderSection(section: BlogSection, i: number) {
 export default function BlogPostContent({ post, lang }: BlogPostContentProps) {
   const tr = getT(lang);
   const blogPath = getLangPath(lang, "/blog");
-  const pageUrl = canonicalUrl("en", `/blog/${post.slug}`);
+  const pageUrl = canonicalUrl(lang, `/blog/${post.slug}`);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -98,7 +98,7 @@ export default function BlogPostContent({ post, lang }: BlogPostContentProps) {
         image: SITE_LOGO_URL,
         mainEntityOfPage: pageUrl,
         url: pageUrl,
-        inLanguage: inLanguage("en"),
+        inLanguage: inLanguage(lang),
         author: {
           "@id": `${BASE_URL}/#organization`,
         },
@@ -114,13 +114,13 @@ export default function BlogPostContent({ post, lang }: BlogPostContentProps) {
             "@type": "ListItem",
             position: 1,
             name: tr.navHome,
-            item: canonicalUrl("en"),
+            item: canonicalUrl(lang),
           },
           {
             "@type": "ListItem",
             position: 2,
             name: tr.navBlog,
-            item: canonicalUrl("en", "/blog"),
+            item: canonicalUrl(lang, "/blog"),
           },
           {
             "@type": "ListItem",
@@ -136,7 +136,7 @@ export default function BlogPostContent({ post, lang }: BlogPostContentProps) {
   return (
     <>
       <JsonLd data={jsonLd} />
-      <Header t={tr} lang={lang} currentPath="/blog" />
+      <Header t={tr} lang={lang} currentPath={`/blog/${post.slug}`} />
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
         <AdBanner slot="top" className="mb-8" />

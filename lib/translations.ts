@@ -98,6 +98,11 @@ export interface Translations {
   scoresDesc: string;
   tipsTitle: string;
   tips: string[];
+  longTailTitle: string;
+  longTailIntro: string;
+  longTailItems: { title: string; desc: string }[];
+  accuracyTitle: string;
+  accuracyItems: string[];
   whoTitle: string;
   whoItems: { icon: string; title: string; desc: string }[];
   faqTitle: string;
@@ -107,7 +112,7 @@ export interface Translations {
 const en: Translations = {
   siteTitle: "Reaction Time Test – How Fast Are You?",
   siteDescription:
-    "Test your reaction time online for free. Click as fast as you can when the screen turns green. Track your results, compare with global averages, and improve your reflexes.",
+    "Free online visual reaction time test. Click when the screen turns green, measure reflex speed in milliseconds, compare your 5-round average, and train for gaming, sport, and focus.",
 
   navHome: "Home",
   navBlog: "Blog",
@@ -171,7 +176,7 @@ const en: Translations = {
 
   aboutTestTitle: "How Does the Test Work?",
   aboutTestDesc:
-    "The screen starts red. After a random delay (1–5 seconds), it turns green. Click as fast as you can when you see green. We measure the time between the screen turning green and your click. Complete 5 rounds to get your average reaction time.",
+    "The screen starts red. After a random delay (1–5 seconds), it turns green. Click as fast as you can when you see green. This free click reaction test measures the time between the visual cue and your mouse, tap, or keyboard response. Complete 5 rounds to get a steadier average reaction time.",
 
   blogTitle: "Reaction Time Blog",
   blogDescription:
@@ -214,8 +219,38 @@ const en: Translations = {
     "Stay hydrated — dehydration slows nerve signal transmission.",
     "Exercise regularly — cardiovascular fitness sharpens reflexes.",
     "Practice consistently — like any skill, reaction time improves with repetition.",
-    "Cut distractions — full focus leads to faster responses.",
+    "Use the same browser, monitor, and mouse when benchmarking your reaction speed.",
+    "Cut distractions — full focus leads to faster responses in any reflex test.",
     "Moderate caffeine can give a small, temporary reaction-speed boost.",
+  ],
+
+  longTailTitle: "Reaction Tests for Gaming, Sport, and Focus",
+  longTailIntro:
+    "Use this no-registration reflex test as a quick benchmark for visual reaction time, mouse click speed, hand-eye coordination, and simple cognitive processing speed.",
+  longTailItems: [
+    {
+      title: "Visual reaction time test",
+      desc: "Measure how quickly you respond to a clear color change, the classic setup used by many online reaction time benchmarks.",
+    },
+    {
+      title: "Mouse and click reaction test",
+      desc: "Check the delay between seeing the signal and pressing your mouse, trackpad, screen, or keyboard.",
+    },
+    {
+      title: "Gaming reflex training",
+      desc: "Build a simple reaction baseline for FPS games, rhythm games, racing games, and esports warmups.",
+    },
+    {
+      title: "Human benchmark alternative",
+      desc: "Run a fast 5-round reaction time benchmark online without creating an account or installing an app.",
+    },
+  ],
+
+  accuracyTitle: "What Affects an Online Reaction Time Result?",
+  accuracyItems: [
+    "Display refresh rate, browser rendering, input latency, and wireless devices can add a few milliseconds to any browser-based reaction time test.",
+    "A 5-round average is more useful than one lucky click because focus, anticipation, and fatigue change from round to round.",
+    "For the cleanest benchmark, test on the same device, close distracting tabs, use a responsive mouse, and compare results over time.",
   ],
 
   whoTitle: "Who Can Benefit From This Test?",
@@ -223,22 +258,22 @@ const en: Translations = {
     {
       icon: "🎮",
       title: "Gamers",
-      desc: "Measure and train the reflexes that separate good players from great ones in competitive games.",
+      desc: "Measure gaming reaction time and train the fast visual reflexes used in FPS, MOBA, rhythm, and racing games.",
     },
     {
       icon: "🏃",
       title: "Athletes",
-      desc: "Sprinters, martial artists, and ball-sport players all rely on fast reaction times to gain a competitive edge.",
+      desc: "Sprinters, martial artists, and ball-sport players can use a quick reflex test to track response speed.",
     },
     {
       icon: "🚗",
       title: "Drivers",
-      desc: "A 50ms difference in reaction time can be the difference between a safe stop and a collision at highway speeds.",
+      desc: "A 50ms difference in visual reaction time can change braking distance at highway speeds.",
     },
     {
       icon: "🧠",
       title: "Researchers & Students",
-      desc: "A simple, reliable tool for studying cognitive performance, attention, and the effects of sleep or caffeine.",
+      desc: "A simple browser reaction time tool for studying attention, fatigue, caffeine, sleep, and processing speed.",
     },
   ],
 
@@ -270,7 +305,7 @@ const en: Translations = {
 const zh: Translations = {
   siteTitle: "反应时间测试 – 你的反应有多快？",
   siteDescription:
-    "免费在线测试你的反应时间。当屏幕变绿时尽快点击，追踪你的成绩，与全球平均水平对比，提升你的反应速度。",
+    "免费在线视觉反应时间测试。屏幕变绿时立即点击，以毫秒测量反应速度，查看 5 轮平均成绩，适合游戏、运动和专注力训练。",
 
   navHome: "首页",
   navBlog: "博客",
@@ -334,7 +369,7 @@ const zh: Translations = {
 
   aboutTestTitle: "测试如何进行？",
   aboutTestDesc:
-    "屏幕开始时为红色。随机等待 1–5 秒后变为绿色。当你看到绿色时尽快点击。我们测量屏幕变绿到你点击之间的时间。完成 5 轮以获得你的平均反应时间。",
+    "屏幕开始时为红色。随机等待 1–5 秒后变为绿色。当你看到绿色时尽快点击。这个免费鼠标反应测试会测量视觉信号出现到你点击、触屏或按键之间的时间。完成 5 轮后可获得更稳定的平均反应时间。",
 
   blogTitle: "反应时间博客",
   blogDescription: "了解反应时间、反射和如何提升你的反应速度的一切知识。",
@@ -375,8 +410,38 @@ const zh: Translations = {
     "多喝水——脱水会减慢神经信号传递速度。",
     "坚持有氧运动——心肺健康有助于提升反射能力。",
     "持续练习——和任何技能一样，反应时间随练习改善。",
-    "减少干扰——全神贯注带来更快的反应。",
+    "使用同一浏览器、显示器和鼠标测试，便于比较反应速度变化。",
+    "减少干扰——全神贯注能让各种反应力测试成绩更稳定。",
     "适量咖啡因可带来短暂、小幅的反应速度提升。",
+  ],
+
+  longTailTitle: "适合游戏、运动和专注训练的反应测试",
+  longTailIntro:
+    "无需注册即可使用这个在线反射测试，快速测量视觉反应时间、鼠标点击反应、手眼协调和基础认知处理速度。",
+  longTailItems: [
+    {
+      title: "视觉反应时间测试",
+      desc: "通过屏幕颜色变化测量你看到信号后做出反应的速度，这是常见在线反应时间基准测试方式。",
+    },
+    {
+      title: "鼠标与点击反应测试",
+      desc: "检测从看到提示到按下鼠标、触控板、屏幕或键盘之间的延迟。",
+    },
+    {
+      title: "游戏反应速度训练",
+      desc: "为 FPS、音游、竞速游戏和电竞热身建立简单的反应速度基准。",
+    },
+    {
+      title: "Human Benchmark 替代工具",
+      desc: "无需账号、无需安装应用，直接在线完成 5 轮反应时间基准测试。",
+    },
+  ],
+
+  accuracyTitle: "哪些因素会影响在线反应时间结果？",
+  accuracyItems: [
+    "显示器刷新率、浏览器渲染、输入延迟和无线设备都可能让浏览器反应时间测试增加几毫秒误差。",
+    "5 轮平均值比单次幸运点击更有参考价值，因为专注度、预判和疲劳会让每轮成绩波动。",
+    "想获得更干净的基准结果，建议使用同一设备测试，关闭干扰标签页，并长期对比成绩趋势。",
   ],
 
   whoTitle: "哪些人适合做这个测试？",
@@ -384,22 +449,22 @@ const zh: Translations = {
     {
       icon: "🎮",
       title: "游戏玩家",
-      desc: "测量和训练在竞技游戏中拉开差距的关键反射能力。",
+      desc: "测量游戏反应时间，训练 FPS、MOBA、音游和竞速游戏中常用的视觉反射能力。",
     },
     {
       icon: "🏃",
       title: "运动员",
-      desc: "短跑、格斗、球类运动员都依赖快速反应时间来获得竞争优势。",
+      desc: "短跑、格斗和球类运动员可以用快速反射测试追踪反应速度。",
     },
     {
       icon: "🚗",
       title: "驾驶员",
-      desc: "在高速行驶时，50ms 的反应时间差异可能是安全停车与碰撞事故的分界线。",
+      desc: "高速行驶时，50ms 的视觉反应时间差异会影响刹车距离。",
     },
     {
       icon: "🧠",
       title: "研究者与学生",
-      desc: "一个简单可靠的工具，用于研究认知表现、注意力以及睡眠或咖啡因的影响。",
+      desc: "一个浏览器反应时间工具，可用于观察注意力、疲劳、咖啡因、睡眠和处理速度。",
     },
   ],
 
@@ -431,7 +496,7 @@ const zh: Translations = {
 const ko: Translations = {
   siteTitle: "반응 속도 테스트 – 당신의 반응은 얼마나 빠른가요?",
   siteDescription:
-    "무료로 온라인 반응 속도를 테스트하세요. 화면이 초록색으로 바뀌면 최대한 빠르게 클릭하세요. 결과를 추적하고 글로벌 평균과 비교해보세요.",
+    "무료 온라인 시각 반응 시간 테스트입니다. 화면이 초록색으로 바뀌면 즉시 클릭하고, 밀리초 단위 반응 속도와 5라운드 평균을 확인해 게임, 스포츠, 집중력 훈련에 활용하세요.",
 
   navHome: "홈",
   navBlog: "블로그",
@@ -495,7 +560,7 @@ const ko: Translations = {
 
   aboutTestTitle: "테스트는 어떻게 진행되나요?",
   aboutTestDesc:
-    "화면이 빨간색으로 시작됩니다. 1–5초의 무작위 지연 후 초록색으로 바뀝니다. 초록색을 보자마자 최대한 빠르게 클릭하세요. 5라운드를 완료하면 평균 반응 시간을 확인할 수 있습니다.",
+    "화면이 빨간색으로 시작됩니다. 1–5초의 무작위 지연 후 초록색으로 바뀝니다. 초록색을 보는 순간 최대한 빠르게 클릭하세요. 이 무료 클릭 반응 테스트는 시각 신호와 마우스, 터치, 키보드 반응 사이의 시간을 측정합니다. 5라운드를 완료하면 더 안정적인 평균 반응 시간을 확인할 수 있습니다.",
 
   blogTitle: "반응 속도 블로그",
   blogDescription: "반응 시간, 반사 신경, 반응 속도 향상 방법에 대해 알아보세요.",
@@ -536,8 +601,38 @@ const ko: Translations = {
     "수분을 충분히 섭취하세요 — 탈수는 신경 신호 전달을 느리게 합니다.",
     "규칙적으로 운동하세요 — 심폐 체력이 반사 신경을 강화합니다.",
     "꾸준히 연습하세요 — 다른 기술처럼 반복 훈련으로 향상됩니다.",
-    "집중력을 유지하세요 — 산만함을 줄이면 반응이 빨라집니다.",
+    "같은 브라우저, 모니터, 마우스로 측정하면 반응 속도 변화를 비교하기 쉽습니다.",
+    "집중력을 유지하세요 — 산만함을 줄이면 모든 반사 신경 테스트에서 반응이 빨라집니다.",
     "적당한 카페인은 일시적으로 반응 속도를 약간 높일 수 있습니다.",
+  ],
+
+  longTailTitle: "게임, 스포츠, 집중력을 위한 반응 테스트",
+  longTailIntro:
+    "회원가입 없이 사용하는 온라인 반사 신경 테스트로 시각 반응 시간, 마우스 클릭 반응, 손-눈 협응, 간단한 인지 처리 속도를 빠르게 벤치마크하세요.",
+  longTailItems: [
+    {
+      title: "시각 반응 시간 테스트",
+      desc: "화면 색상 변화에 얼마나 빠르게 반응하는지 측정하는 대표적인 온라인 반응 시간 벤치마크입니다.",
+    },
+    {
+      title: "마우스 및 클릭 반응 테스트",
+      desc: "신호를 본 뒤 마우스, 트랙패드, 화면 또는 키보드를 누르기까지의 지연 시간을 확인합니다.",
+    },
+    {
+      title: "게임 반사 신경 훈련",
+      desc: "FPS, 리듬 게임, 레이싱 게임, e스포츠 워밍업을 위한 간단한 반응 속도 기준을 만듭니다.",
+    },
+    {
+      title: "Human Benchmark 대안",
+      desc: "계정 생성이나 앱 설치 없이 온라인에서 빠르게 5라운드 반응 시간 벤치마크를 실행하세요.",
+    },
+  ],
+
+  accuracyTitle: "온라인 반응 시간 결과에 영향을 주는 요소",
+  accuracyItems: [
+    "디스플레이 주사율, 브라우저 렌더링, 입력 지연, 무선 장치는 브라우저 기반 반응 시간 테스트에 몇 밀리초를 더할 수 있습니다.",
+    "집중력, 예측, 피로는 라운드마다 달라지므로 한 번의 운 좋은 클릭보다 5라운드 평균이 더 유용합니다.",
+    "더 깨끗한 벤치마크를 원한다면 같은 기기에서 테스트하고, 방해되는 탭을 닫고, 반응형 마우스로 시간에 따른 추세를 비교하세요.",
   ],
 
   whoTitle: "누가 이 테스트를 활용할 수 있나요?",
@@ -545,22 +640,22 @@ const ko: Translations = {
     {
       icon: "🎮",
       title: "게이머",
-      desc: "경쟁 게임에서 실력 차이를 만드는 반사 신경을 측정하고 훈련하세요.",
+      desc: "FPS, MOBA, 리듬, 레이싱 게임에서 쓰이는 시각 반사 신경과 게임 반응 시간을 측정하세요.",
     },
     {
       icon: "🏃",
       title: "운동선수",
-      desc: "단거리 선수, 격투기 선수, 구기 종목 선수 모두 빠른 반응 속도로 경쟁 우위를 얻습니다.",
+      desc: "단거리, 격투기, 구기 종목 선수는 빠른 반사 테스트로 반응 속도를 추적할 수 있습니다.",
     },
     {
       icon: "🚗",
       title: "운전자",
-      desc: "고속 주행 시 50ms의 반응 속도 차이가 안전한 정지와 충돌 사고를 가를 수 있습니다.",
+      desc: "고속 주행에서는 50ms의 시각 반응 시간 차이도 제동 거리에 영향을 줄 수 있습니다.",
     },
     {
       icon: "🧠",
       title: "연구자 및 학생",
-      desc: "인지 성능, 주의력, 수면이나 카페인의 영향을 연구하기 위한 간단하고 신뢰할 수 있는 도구입니다.",
+      desc: "주의력, 피로, 카페인, 수면, 처리 속도를 관찰하는 브라우저 반응 시간 도구입니다.",
     },
   ],
 
@@ -592,7 +687,7 @@ const ko: Translations = {
 const ja: Translations = {
   siteTitle: "反応時間テスト – あなたの反応速度は？",
   siteDescription:
-    "無料でオンライン反応時間をテスト。画面が緑に変わったらできるだけ早くクリック。結果を記録して世界平均と比較しましょう。",
+    "無料のオンライン視覚反応時間テストです。画面が緑に変わったらすぐクリックし、ミリ秒単位の反応速度と5ラウンド平均を確認して、ゲーム・スポーツ・集中力トレーニングに活用できます。",
 
   navHome: "ホーム",
   navBlog: "ブログ",
@@ -656,7 +751,7 @@ const ja: Translations = {
 
   aboutTestTitle: "テストの仕組みは？",
   aboutTestDesc:
-    "画面は赤でスタートします。1〜5秒のランダムな待機後に緑に変わります。緑を見たらできるだけ早くクリックしてください。5ラウンド完了すると平均反応時間がわかります。",
+    "画面は赤でスタートします。1〜5秒のランダムな待機後に緑に変わります。緑を見たらできるだけ早くクリックしてください。この無料クリック反応テストは、視覚的な合図からマウス、タップ、キーボード入力までの時間を測定します。5ラウンド完了すると、より安定した平均反応時間がわかります。",
 
   blogTitle: "反応時間ブログ",
   blogDescription: "反応時間、反射神経、反応速度の向上方法について学びましょう。",
@@ -697,8 +792,38 @@ const ja: Translations = {
     "水分補給を忘れずに — 脱水は神経信号の伝達を遅くします。",
     "定期的に運動する — 心肺機能が高いほど反射神経が鋭くなります。",
     "継続的に練習する — 繰り返しトレーニングで反応時間は改善されます。",
-    "集中力を保つ — 気が散ると反応が遅くなります。",
+    "同じブラウザ、モニター、マウスで測ると、反応速度の変化を比較しやすくなります。",
+    "集中力を保つ — 気が散らない環境ほど反射神経テストの結果は安定します。",
     "適度なカフェインは一時的に反応速度をわずかに高めることがあります。",
+  ],
+
+  longTailTitle: "ゲーム、スポーツ、集中力のための反応テスト",
+  longTailIntro:
+    "登録不要のオンライン反射神経テストとして、視覚反応時間、マウスクリック反応、手と目の協応、シンプルな認知処理速度をすばやく測定できます。",
+  longTailItems: [
+    {
+      title: "視覚反応時間テスト",
+      desc: "画面の色変化にどれだけ速く反応できるかを測る、オンライン反応時間ベンチマークの定番形式です。",
+    },
+    {
+      title: "マウス・クリック反応テスト",
+      desc: "合図を見てからマウス、トラックパッド、画面、キーボードを押すまでの遅延を確認します。",
+    },
+    {
+      title: "ゲーム反射神経トレーニング",
+      desc: "FPS、音楽ゲーム、レースゲーム、eスポーツのウォームアップ向けに反応速度の基準を作れます。",
+    },
+    {
+      title: "Human Benchmark の代替",
+      desc: "アカウント作成やアプリのインストールなしで、5ラウンドの反応時間ベンチマークをすぐに実行できます。",
+    },
+  ],
+
+  accuracyTitle: "オンライン反応時間の結果に影響する要素",
+  accuracyItems: [
+    "ディスプレイのリフレッシュレート、ブラウザ描画、入力遅延、無線デバイスは、ブラウザ反応時間テストに数ミリ秒を加えることがあります。",
+    "集中度、予測、疲労はラウンドごとに変わるため、1回の幸運なクリックより5ラウンド平均のほうが参考になります。",
+    "よりきれいな基準値を得るには、同じデバイスで測定し、不要なタブを閉じ、反応のよいマウスで継続的に比較しましょう。",
   ],
 
   whoTitle: "このテストが役立つ方",
@@ -706,22 +831,22 @@ const ja: Translations = {
     {
       icon: "🎮",
       title: "ゲーマー",
-      desc: "競技ゲームで差をつける反射神経を測定・トレーニングしましょう。",
+      desc: "FPS、MOBA、音楽ゲーム、レースゲームで使う視覚反射とゲーム反応時間を測定できます。",
     },
     {
       icon: "🏃",
       title: "アスリート",
-      desc: "短距離走者・格闘家・球技選手は、速い反応時間で競争優位を得ます。",
+      desc: "短距離、格闘技、球技の選手は、簡単な反射テストで反応速度を追跡できます。",
     },
     {
       icon: "🚗",
       title: "ドライバー",
-      desc: "高速走行時、50msの差が安全な停止と衝突事故を分けることがあります。",
+      desc: "高速走行では、50msの視覚反応時間の差が制動距離に影響することがあります。",
     },
     {
       icon: "🧠",
       title: "研究者・学生",
-      desc: "認知パフォーマンス、注意力、睡眠やカフェインの影響を研究するためのシンプルで信頼性の高いツールです。",
+      desc: "注意力、疲労、カフェイン、睡眠、処理速度を観察するブラウザ反応時間ツールです。",
     },
   ],
 
@@ -753,7 +878,7 @@ const ja: Translations = {
 const de: Translations = {
   siteTitle: "Reaktionszeittest – Wie schnell reagierst du?",
   siteDescription:
-    "Teste deine Reaktionszeit kostenlos online. Klicke so schnell wie möglich, wenn der Bildschirm grün wird. Verfolge deine Ergebnisse und vergleiche mit dem globalen Durchschnitt.",
+    "Kostenloser visueller Reaktionszeittest online. Klicke, sobald der Bildschirm grün wird, miss deine Reflexe in Millisekunden und nutze den 5-Runden-Durchschnitt für Gaming, Sport und Fokus.",
 
   navHome: "Start",
   navBlog: "Blog",
@@ -817,7 +942,7 @@ const de: Translations = {
 
   aboutTestTitle: "Wie funktioniert der Test?",
   aboutTestDesc:
-    "Der Bildschirm beginnt rot. Nach einer zufälligen Verzögerung (1–5 Sekunden) wird er grün. Klicke so schnell wie möglich, wenn du Grün siehst. Absolviere 5 Runden für deine durchschnittliche Reaktionszeit.",
+    "Der Bildschirm beginnt rot. Nach einer zufälligen Verzögerung (1–5 Sekunden) wird er grün. Klicke so schnell wie möglich, wenn du Grün siehst. Dieser kostenlose Klick-Reaktionstest misst die Zeit zwischen visuellem Signal und Maus-, Touch- oder Tastatureingabe. Absolviere 5 Runden für eine stabilere durchschnittliche Reaktionszeit.",
 
   blogTitle: "Reaktionszeit-Blog",
   blogDescription:
@@ -860,8 +985,38 @@ const de: Translations = {
     "Ausreichend trinken — Dehydration verlangsamt die Nervensignalübertragung.",
     "Regelmäßig Sport treiben — Ausdauertraining schärft die Reflexe.",
     "Konsequent üben — wie jede Fähigkeit verbessert sich die Reaktionszeit durch Wiederholung.",
-    "Ablenkungen minimieren — volle Konzentration führt zu schnelleren Reaktionen.",
+    "Nutze denselben Browser, Monitor und dieselbe Maus, wenn du deine Reaktionsgeschwindigkeit vergleichst.",
+    "Ablenkungen minimieren — volle Konzentration verbessert die Ergebnisse in jedem Reflex-Test.",
     "Moderater Koffeinkonsum kann die Reaktionsgeschwindigkeit kurzfristig leicht steigern.",
+  ],
+
+  longTailTitle: "Reaktionstests für Gaming, Sport und Fokus",
+  longTailIntro:
+    "Nutze diesen Reflex-Test ohne Registrierung als schnellen Benchmark für visuelle Reaktionszeit, Maus-Klick-Reaktion, Hand-Auge-Koordination und einfache kognitive Verarbeitungsgeschwindigkeit.",
+  longTailItems: [
+    {
+      title: "Visueller Reaktionszeittest",
+      desc: "Miss, wie schnell du auf einen klaren Farbwechsel reagierst, den klassischen Aufbau vieler Online-Reaktionszeit-Benchmarks.",
+    },
+    {
+      title: "Maus- und Klick-Reaktionstest",
+      desc: "Prüfe die Verzögerung zwischen dem Signal und deinem Klick mit Maus, Trackpad, Touchscreen oder Tastatur.",
+    },
+    {
+      title: "Gaming-Reflextraining",
+      desc: "Erstelle eine einfache Reaktionsbasis für FPS-Spiele, Rhythmusspiele, Rennspiele und eSports-Warmups.",
+    },
+    {
+      title: "Human-Benchmark-Alternative",
+      desc: "Starte online einen schnellen 5-Runden-Reaktionszeit-Benchmark, ohne Konto und ohne App-Installation.",
+    },
+  ],
+
+  accuracyTitle: "Was beeinflusst ein Online-Reaktionszeit-Ergebnis?",
+  accuracyItems: [
+    "Bildwiederholrate, Browser-Rendering, Eingabelatenz und kabellose Geräte können bei browserbasierten Reaktionszeittests einige Millisekunden hinzufügen.",
+    "Ein 5-Runden-Durchschnitt ist nützlicher als ein einzelner Glücksklick, weil Fokus, Erwartung und Müdigkeit von Runde zu Runde schwanken.",
+    "Für einen sauberen Benchmark teste auf demselben Gerät, schließe ablenkende Tabs, nutze eine reaktionsschnelle Maus und vergleiche Ergebnisse über längere Zeit.",
   ],
 
   whoTitle: "Wer profitiert von diesem Test?",
@@ -869,22 +1024,22 @@ const de: Translations = {
     {
       icon: "🎮",
       title: "Gamer",
-      desc: "Miss und trainiere die Reflexe, die gute von großartigen Spielern in Wettkampfspielen unterscheiden.",
+      desc: "Miss deine Gaming-Reaktionszeit und trainiere visuelle Reflexe für FPS, MOBA, Rhythmus- und Rennspiele.",
     },
     {
       icon: "🏃",
       title: "Athleten",
-      desc: "Sprinter, Kampfsportler und Ballspieler verlassen sich auf schnelle Reaktionszeiten für einen Wettkampfvorteil.",
+      desc: "Sprinter, Kampfsportler und Ballspieler können mit einem schnellen Reflex-Test ihre Reaktionsgeschwindigkeit verfolgen.",
     },
     {
       icon: "🚗",
       title: "Fahrer",
-      desc: "Bei Autobahngeschwindigkeit kann ein Unterschied von 50ms in der Reaktionszeit über sicheres Bremsen oder Kollision entscheiden.",
+      desc: "Bei Autobahngeschwindigkeit kann ein Unterschied von 50ms in der visuellen Reaktionszeit den Bremsweg verändern.",
     },
     {
       icon: "🧠",
       title: "Forscher & Studierende",
-      desc: "Ein einfaches, zuverlässiges Werkzeug zur Untersuchung kognitiver Leistung, Aufmerksamkeit sowie der Auswirkungen von Schlaf oder Koffein.",
+      desc: "Ein Browser-Reaktionszeittest zur Beobachtung von Aufmerksamkeit, Müdigkeit, Koffein, Schlaf und Verarbeitungsgeschwindigkeit.",
     },
   ],
 
@@ -916,7 +1071,7 @@ const de: Translations = {
 const fr: Translations = {
   siteTitle: "Test de Temps de Réaction – Êtes-vous rapide ?",
   siteDescription:
-    "Testez votre temps de réaction gratuitement en ligne. Cliquez le plus vite possible quand l'écran devient vert. Suivez vos résultats et comparez avec la moyenne mondiale.",
+    "Test visuel de temps de réaction gratuit en ligne. Cliquez dès que l'écran devient vert, mesurez vos réflexes en millisecondes et utilisez la moyenne sur 5 tours pour le jeu, le sport et la concentration.",
 
   navHome: "Accueil",
   navBlog: "Blog",
@@ -980,7 +1135,7 @@ const fr: Translations = {
 
   aboutTestTitle: "Comment fonctionne le test ?",
   aboutTestDesc:
-    "L'écran commence en rouge. Après un délai aléatoire (1 à 5 secondes), il devient vert. Cliquez le plus vite possible dès que vous voyez le vert. Complétez 5 tours pour obtenir votre temps de réaction moyen.",
+    "L'écran commence en rouge. Après un délai aléatoire (1 à 5 secondes), il devient vert. Cliquez le plus vite possible dès que vous voyez le vert. Ce test de réaction au clic gratuit mesure le délai entre le signal visuel et votre réponse à la souris, au toucher ou au clavier. Complétez 5 tours pour obtenir un temps de réaction moyen plus stable.",
 
   blogTitle: "Blog sur le temps de réaction",
   blogDescription:
@@ -1023,8 +1178,38 @@ const fr: Translations = {
     "Rester hydraté — la déshydratation ralentit la transmission des signaux nerveux.",
     "Faire de l'exercice régulièrement — la forme cardiovasculaire affûte les réflexes.",
     "S'entraîner régulièrement — comme toute compétence, le temps de réaction s'améliore avec la répétition.",
-    "Réduire les distractions — une concentration totale mène à des réactions plus rapides.",
+    "Gardez le même navigateur, le même écran et la même souris pour comparer votre vitesse de réaction.",
+    "Réduire les distractions — une concentration totale améliore les résultats dans tout test de réflexes.",
     "Une consommation modérée de caféine peut légèrement améliorer la vitesse de réaction temporairement.",
+  ],
+
+  longTailTitle: "Tests de Réaction pour le Jeu, le Sport et la Concentration",
+  longTailIntro:
+    "Utilisez ce test de réflexes sans inscription comme benchmark rapide du temps de réaction visuel, du clic souris, de la coordination main-oeil et de la vitesse de traitement cognitive simple.",
+  longTailItems: [
+    {
+      title: "Test visuel de temps de réaction",
+      desc: "Mesurez la vitesse à laquelle vous répondez à un changement de couleur clair, le format classique des benchmarks de réaction en ligne.",
+    },
+    {
+      title: "Test de réaction souris et clic",
+      desc: "Vérifiez le délai entre le signal et votre clic avec une souris, un trackpad, un écran tactile ou un clavier.",
+    },
+    {
+      title: "Entraînement des réflexes gaming",
+      desc: "Créez une base simple pour les FPS, les jeux de rythme, les jeux de course et les échauffements e-sport.",
+    },
+    {
+      title: "Alternative à Human Benchmark",
+      desc: "Lancez un benchmark de temps de réaction en 5 tours, sans compte et sans installer d'application.",
+    },
+  ],
+
+  accuracyTitle: "Qu'est-ce qui influence un résultat de réaction en ligne ?",
+  accuracyItems: [
+    "Le taux de rafraîchissement, le rendu du navigateur, la latence d'entrée et les appareils sans fil peuvent ajouter quelques millisecondes à un test de temps de réaction dans le navigateur.",
+    "Une moyenne sur 5 tours est plus utile qu'un clic chanceux, car la concentration, l'anticipation et la fatigue varient d'un tour à l'autre.",
+    "Pour un benchmark plus propre, utilisez le même appareil, fermez les onglets distrayants, choisissez une souris réactive et comparez vos résultats dans le temps.",
   ],
 
   whoTitle: "Qui peut bénéficier de ce test ?",
@@ -1032,22 +1217,22 @@ const fr: Translations = {
     {
       icon: "🎮",
       title: "Joueurs",
-      desc: "Mesurez et entraînez les réflexes qui distinguent les bons joueurs des grands dans les jeux compétitifs.",
+      desc: "Mesurez votre temps de réaction gaming et entraînez les réflexes visuels utiles en FPS, MOBA, rythme et course.",
     },
     {
       icon: "🏃",
       title: "Athlètes",
-      desc: "Les sprinters, pratiquants d'arts martiaux et joueurs de sports collectifs s'appuient sur des temps de réaction rapides pour obtenir un avantage compétitif.",
+      desc: "Les sprinters, pratiquants d'arts martiaux et joueurs de sports collectifs peuvent suivre leur vitesse de réponse avec un test de réflexes rapide.",
     },
     {
       icon: "🚗",
       title: "Conducteurs",
-      desc: "À vitesse autoroutière, une différence de 50ms peut faire la distinction entre un arrêt sécurisé et une collision.",
+      desc: "À vitesse autoroutière, une différence de 50ms dans le temps de réaction visuel peut modifier la distance de freinage.",
     },
     {
       icon: "🧠",
       title: "Chercheurs & Étudiants",
-      desc: "Un outil simple et fiable pour étudier les performances cognitives, l'attention et les effets du sommeil ou de la caféine.",
+      desc: "Un outil de réaction dans le navigateur pour observer l'attention, la fatigue, la caféine, le sommeil et la vitesse de traitement.",
     },
   ],
 

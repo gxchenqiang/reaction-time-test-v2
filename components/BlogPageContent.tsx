@@ -7,7 +7,7 @@ import {
   organizationJsonLd,
 } from "@/lib/seo";
 import { t as getT } from "@/lib/translations";
-import { BLOG_POSTS } from "@/lib/blogPosts";
+import { getBlogPosts } from "@/lib/blogPosts";
 import Header from "./Header";
 import Footer from "./Footer";
 import AdBanner from "./AdBanner";
@@ -29,6 +29,7 @@ const BLOG_UI_COPY: Record<Lang, { readMore: string }> = {
 export default function BlogPageContent({ lang }: BlogPageContentProps) {
   const tr = getT(lang);
   const copy = BLOG_UI_COPY[lang];
+  const posts = getBlogPosts(lang);
   const pageUrl = canonicalUrl(lang, "/blog");
   const jsonLd = {
     "@context": "https://schema.org",
@@ -44,12 +45,12 @@ export default function BlogPageContent({ lang }: BlogPageContentProps) {
         isPartOf: {
           "@id": `${BASE_URL}/#website`,
         },
-        hasPart: BLOG_POSTS.map((post) => ({
+        hasPart: posts.map((post) => ({
           "@type": "BlogPosting",
           headline: post.title,
           description: post.excerpt,
           datePublished: post.date,
-          url: canonicalUrl("en", `/blog/${post.slug}`),
+          url: canonicalUrl(lang, `/blog/${post.slug}`),
         })),
       },
       {
@@ -87,11 +88,8 @@ export default function BlogPageContent({ lang }: BlogPageContentProps) {
         </div>
 
         <div className="grid gap-6">
-          {BLOG_POSTS.map((post) => {
-            const href =
-              lang === "en"
-                ? getLangPath(lang, `/blog/${post.slug}`)
-                : getLangPath("en", `/blog/${post.slug}`);
+          {posts.map((post) => {
+            const href = getLangPath(lang, `/blog/${post.slug}`);
             return (
               <article key={post.slug}>
                 <Link

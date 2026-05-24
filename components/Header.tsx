@@ -16,16 +16,16 @@ export default function Header({ t, lang, currentPath = "" }: HeaderProps) {
   const [langOpen, setLangOpen] = useState(false);
 
   const navLinks = [
-    { href: getLangPath(lang, ""), label: t.navHome },
-    { href: getLangPath("en", "/blog"), label: t.navBlog },
-    { href: getLangPath(lang, "/about"), label: t.navAbout },
-    { href: getLangPath(lang, "/contact"), label: t.navContact },
+    { path: "", href: getLangPath(lang, ""), label: t.navHome },
+    { path: "/blog", href: getLangPath(lang, "/blog"), label: t.navBlog },
+    { path: "/about", href: getLangPath(lang, "/about"), label: t.navAbout },
+    { path: "/contact", href: getLangPath(lang, "/contact"), label: t.navContact },
   ];
-  const languageSwitchPath = currentPath.startsWith("/blog") ? "" : currentPath;
+  const languageSwitchPath = currentPath;
 
-  const isActive = (href: string) => {
-    const normalized = href === "/" ? "" : href;
-    return currentPath === normalized || currentPath === normalized + "/";
+  const isActive = (path: string) => {
+    if (path === "") return currentPath === "";
+    return currentPath === path || currentPath.startsWith(`${path}/`);
   };
 
   return (
@@ -47,7 +47,7 @@ export default function Header({ t, lang, currentPath = "" }: HeaderProps) {
               key={link.href}
               href={link.href}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                isActive(link.href)
+                isActive(link.path)
                   ? "bg-gray-100 text-gray-900"
                   : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
               }`}
@@ -139,7 +139,7 @@ export default function Header({ t, lang, currentPath = "" }: HeaderProps) {
               href={link.href}
               onClick={() => setMenuOpen(false)}
               className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors mt-1 ${
-                isActive(link.href)
+                isActive(link.path)
                   ? "bg-gray-100 text-gray-900"
                   : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
               }`}

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { BLOG_POSTS, getPostBySlug } from "@/lib/blogPosts";
-import { canonicalUrl } from "@/lib/seo";
+import { getBlogSlugs, getPostBySlug } from "@/lib/blogPosts";
+import { canonicalUrl, languageAlternates } from "@/lib/seo";
 import BlogPostContent from "@/components/BlogPostContent";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({ slug: post.slug }));
+  return getBlogSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: post.excerpt,
     alternates: {
       canonical: canonicalUrl("en", `/blog/${slug}`),
+      languages: languageAlternates(`/blog/${slug}`),
     },
     openGraph: {
       type: "article",

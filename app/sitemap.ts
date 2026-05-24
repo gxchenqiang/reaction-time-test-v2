@@ -8,7 +8,7 @@ export const dynamic = "force-static";
 const SITE_LAST_MODIFIED = new Date("2026-05-03T00:00:00.000Z");
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const localizedPages = ["", "/about", "/contact"];
+  const localizedPages = ["", "/blog", "/about", "/contact"];
 
   const urls: MetadataRoute.Sitemap = [];
 
@@ -26,20 +26,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  urls.push({
-    url: canonicalUrl("en", "/blog"),
-    lastModified: SITE_LAST_MODIFIED,
-    changeFrequency: "monthly",
-    priority: 0.7,
-  });
-
   for (const post of BLOG_POSTS) {
-    urls.push({
-      url: canonicalUrl("en", `/blog/${post.slug}`),
-      lastModified: new Date(`${post.date}T00:00:00.000Z`),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    });
+    for (const lang of SUPPORTED_LANGS) {
+      const path = `/blog/${post.slug}`;
+      urls.push({
+        url: canonicalUrl(lang as Lang, path),
+        lastModified: new Date(`${post.date}T00:00:00.000Z`),
+        changeFrequency: "monthly",
+        priority: 0.6,
+        alternates: {
+          languages: languageAlternates(path),
+        },
+      });
+    }
   }
 
   return urls;

@@ -1,7 +1,7 @@
 
 import type { Metadata } from "next";
 import BlogPageContent from "@/components/BlogPageContent";
-import { canonicalUrl } from "@/lib/seo";
+import { canonicalUrl, languageAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Reaction Time Blog – Tips, Science & Research",
@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     "Explore articles about reaction time, reflexes, and how to improve your response speed. Science-backed insights for gamers, athletes, and curious minds.",
   alternates: {
     canonical: canonicalUrl("en", "/blog"),
+    languages: languageAlternates("/blog"),
   },
 };
 

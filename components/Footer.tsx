@@ -71,7 +71,7 @@ export default function Footer({ t, lang }: FooterProps) {
             <ul className="space-y-2">
               {[
                 { href: getLangPath(lang, ""), label: t.navHome },
-                { href: getLangPath("en", "/blog"), label: t.navBlog },
+                { href: getLangPath(lang, "/blog"), label: t.navBlog },
                 { href: getLangPath(lang, "/about"), label: t.navAbout },
                 { href: getLangPath(lang, "/contact"), label: t.navContact },
               ].map((link) => (
