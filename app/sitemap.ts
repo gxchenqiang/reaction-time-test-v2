@@ -5,7 +5,11 @@ import { canonicalUrl, languageAlternates } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
-const SITE_LAST_MODIFIED = new Date("2026-05-03T00:00:00.000Z");
+const SITE_LAST_MODIFIED = new Date("2026-05-25T00:00:00.000Z");
+
+function latestDate(...dates: Date[]): Date {
+  return new Date(Math.max(...dates.map((date) => date.getTime())));
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const localizedPages = ["", "/blog", "/about", "/contact"];
@@ -31,7 +35,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       const path = `/blog/${post.slug}`;
       urls.push({
         url: canonicalUrl(lang as Lang, path),
-        lastModified: new Date(`${post.date}T00:00:00.000Z`),
+        lastModified: latestDate(
+          new Date(`${post.date}T00:00:00.000Z`),
+          SITE_LAST_MODIFIED
+        ),
         changeFrequency: "monthly",
         priority: 0.6,
         alternates: {
