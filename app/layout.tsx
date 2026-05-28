@@ -39,6 +39,13 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
+      <head>
+        <script
+          defer
+          data-domain="reactiontimetestonline.com"
+          src="https://app.pageview.app/js/script.js"
+        ></script>
+      </head>
       <body className={`${inter.className} bg-gray-50 min-h-screen`}>
         {children}
       </body>
