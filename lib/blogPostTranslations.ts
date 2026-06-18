@@ -397,6 +397,108 @@ export const BLOG_POST_TRANSLATIONS: Partial<
         },
       ],
     },
+    "goalkeeper-reaction-time-vozinha-world-cup": {
+      title: "40 岁守门员的反应时间如何零封西班牙：Vozinha 世界杯神扑背后的科学",
+      excerpt:
+        "Vozinha 在 2026 世界杯对阵西班牙时完成 7 次扑救。守门员反应时间科学能告诉我们什么？",
+      readTime: "7 分钟阅读",
+      sections: [
+        {
+          type: "paragraph",
+          content:
+            "当佛得角走上球场，迎来队史首场世界杯比赛时，赔率很残酷。世界第 67 对阵第 2。一支来自欧洲小联赛的阵容，面对满载欧冠冠军的西班牙。博彩公司预测三四个球的差距。记分牌上写着零。关键在穿 1 号球衣的那个人——绰号 Vozinha。",
+        },
+        {
+          type: "h2",
+          content: "比赛回顾：Vozinha 对阵西班牙",
+        },
+        {
+          type: "paragraph",
+          content:
+            "2026 年 6 月 14 日，Josimar José Évora Dias——人们都叫他 Vozinha——贡献了一场让人忘记比分、只想盯着他看的表现。面对西班牙在预选赛场均两球以上的攻击线，他完成了 7 次扑救。不是狼狈的封堵或碰运气的折射——是干净、时机精准的扑救：他读懂了射手的身体姿态，调整脚步，把手伸到球路上。比赛 0-0 收场，Vozinha 拿下全场最佳。",
+        },
+        {
+          type: "paragraph",
+          content:
+            "他完成这一切时已经 40 岁 12 天，成为世界杯历史上首次出场最年长的球员。他也是世界杯历史上第三年长的零封守门员，并创下了自 1966 年有统计以来 40 岁以上守门员单场扑救次数第二多的纪录。对于一个曾在摩尔多瓦和塞浦路斯联赛踢过球的人来说，这不算差。",
+        },
+        {
+          type: "h2",
+          content: "守门员的反应时间挑战",
+        },
+        {
+          type: "paragraph",
+          content:
+            "扑出点球或近距离射门常被说成是「条件反射」，但实际机制比这复杂。职业球员的射门速度在 60 到 130 公里/小时之间，取决于距离和技术。从点球点——大约 11 米——球到达球门线大约需要 400 毫秒。禁区内更小角度的射门，这个窗口可以缩短到 200 毫秒以下。",
+        },
+        {
+          type: "paragraph",
+          content:
+            "问题来了：健康成年人的平均简单视觉反应时间大约在 200-250 毫秒。这还只是看到球并启动运动反应的时间——不包括身体横跨球门的移动。守门员的扑救动作还需要 300-500 毫秒才能覆盖距离。所以按纯反应数学算，扑出一个角度刁钻的近距离射门几乎是不可能的。",
+        },
+        {
+          type: "paragraph",
+          content:
+            "然而职业足球中守门员大约能扑出 22-24% 的点球，运动战中的扑救率更高。怎么做到的？答案不是超人的反射神经，而是预判——而 Vozinha 40 年的经验让他的预判成为最大优势。",
+        },
+        {
+          type: "h2",
+          content: "为什么预判是 Vozinha 作为守门员的秘密武器",
+        },
+        {
+          type: "paragraph",
+          content:
+            "对精英守门员的研究反复表明，他们在简单反应测试中并不比普通人快多少。2019 年发表在《运动科学杂志》上的一项研究发现，职业守门员的简单反应时间平均约 210 毫秒——和受过训练的非运动员几乎一样。真正让他们脱颖而出的是读取射门前置信号的能力：射手的髋部角度、支撑脚位置、助跑路线和身体倾斜。这些信号在球被踢出前 100-300 毫秒就会出现。",
+        },
+        {
+          type: "paragraph",
+          content:
+            "通过读取这些信号，经验丰富的守门员实际上在球离开脚之前就开始了扑救动作。这就是为什么 40 岁的 Vozinha 仍然能做出 22 岁的更快反射神经可能做不到的扑救。原始反应速度在 20 多岁中期达到峰值后逐渐下降——我们在反应时间与年龄的文章中讨论过这一点。但预判是一种习得技能，每场比赛、每次面对射门、每个被吸收的模式都在提升它。91 次代表佛得角出场（队史第二多），Vozinha 见过的射门模式比大多数守门员整个职业生涯见过的都多。",
+        },
+        {
+          type: "paragraph",
+          content:
+            "回看西班牙比赛的录像，你会看得很清楚。好几次扑救中，Vozinha 在西班牙射手完成射门动作之前就已经开始转移重心、调整脚步了。他不是在猜——他在读。髋部打开意味着远角弧线球，支撑脚指向近角。这些微信号是面对数千次射门后刻入守门员视觉处理系统的产物。",
+        },
+        {
+          type: "h2",
+          content: "你能训练出守门员级别的反应时间吗？",
+        },
+        {
+          type: "paragraph",
+          content:
+            "你可能不会很快面对拉明·亚马尔 130 公里/小时的射门，但让 Vozinha 的表现成为可能的那些原则，对任何想提高反应速度的人都适用：",
+        },
+        {
+          type: "list",
+          items: [
+            "练习具体任务。反应时间具有任务特异性。想点击更快就练点击，想扑救更快就练扑救。驱动速度的神经通路是通过重复建立的，不是靠一般体能。",
+            "训练预判，不只是反射。在任何领域——驾驶、游戏、运动——看起来反应最快的人，通常是读局势最早的人。研究你所在领域的模式。",
+            "原始速度依然重要。预判能补偿较慢的反应时间，但不能替代它。通过定期测试和充足睡眠保持简单反应时间的敏锐度仍然重要，尤其是随着年龄增长。",
+            "经验会累积。每场比赛、每轮训练、每次练习都在扩充你的模式库。25 岁的人可能有更快的原始反射，但 40 岁持续训练的人拥有更大的模式数据库可以调用。这就是 Vozinha 的优势。",
+          ],
+        },
+        {
+          type: "h2",
+          content: "测试你的守门员反应时间",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Vozinha 的表现建立在数十年的守门经验之上，但每个守门员都有起点——而起点就是了解自己到底有多快。我们的反应时间测试用浏览器级精度计时测量你的简单视觉反应时间，单位是毫秒。5 轮测试，一个平均分。不用注册，不用下载，没有套路。",
+        },
+        {
+          type: "paragraph",
+          content:
+            "如果你好奇自己处于什么水平——是接近职业运动员的 150-200 毫秒，还是普通成年人的 200-300 毫秒——只有一个办法能知道。现在就试试，看看你的原始速度能不能撑得起你的预判。",
+        },
+        {
+          type: "highlight",
+          content:
+            "试试免费的 5 轮反应时间测试 → 看看你的反射速度与职业运动员和守门员相比如何。",
+        },
+      ],
+    },
   },
   ko: {
     "what-is-reaction-time": {
@@ -666,6 +768,109 @@ export const BLOG_POST_TRANSLATIONS: Partial<
           type: "highlight",
           content:
             "충분히 잔 아침과 늦은 밤에 각각 반응 시간을 테스트하면 피로가 어떻게 쌓이는지 바로 볼 수 있습니다.",
+        },
+      ],
+    },
+    "goalkeeper-reaction-time-vozinha-world-cup": {
+      title:
+        "40세 골키퍼의 반응 시간이 스페인을 무실점으로 막은 방법: 보지냐 월드컵 선방의 과학",
+      excerpt:
+        "보지냐가 2026 월드컵 스페인전에서 7세이브를 기록했습니다. 골키퍼 반응 시간 과학이 말해주는 것은?",
+      readTime: "7분 읽기",
+      sections: [
+        {
+          type: "paragraph",
+          content:
+            "카보베르데가 구단 역사상 첫 월드컵 경기를 위해 피치에 올랐을 때, 배당률은 가혹했습니다. 세계 67위 대 2위. 유럽 소규모 리그 출신 선수들이 챔피언스리그 우승자로 가득한 스페인을 상대로. 배당판은 3~4골 차이를 예상했습니다. 스코어보드는 0이었습니다. 그 이유는 1번 유니폼을 입고 보지냐라는 별명을 가진 선수였습니다.",
+        },
+        {
+          type: "h2",
+          content: "경기 리뷰: 보지냐 대 스페인",
+        },
+        {
+          type: "paragraph",
+          content:
+            "2026년 6월 14일, 조시마르 조제 에보라 디아스——모두가 보지냐라고 부르는 그 선수——는 스코어를 잊고 그의 플레이만 보게 만드는 퍼포먼스를 보여주었습니다. 예선에서 경기당 2골 이상을 넣던 스페인 공격진을 상대로 7세이브. 허겁지겁 막아낸 블록이나 운 좋은 굴절이 아니라——슈터의 자세를 읽고, 발을 맞추고, 손을 공 궤적에 댄 깔끔한 선방이었습니다. 경기는 0-0으로 끝났고, 보지냐는 최우수 선수를 받았습니다.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "그는 40세 12일의 나이로 이를 해냈고, 월드컵 데뷔 최고령 선수가 되었습니다. 또한 월드컵 역사상 세 번째로 고령의 무실점 골키퍼가 되었고, 1966년 기록 시작 이후 40세 이상 골키퍼 단일 경기 세이브 2위를 기록했습니다. 몰도바와 키프로스 리그에서 뛰었던 선수치고 나쁘지 않습니다.",
+        },
+        {
+          type: "h2",
+          content: "골키퍼의 반응 시간 과제",
+        },
+        {
+          type: "paragraph",
+          content:
+            "페널티킥이나 근거리 슈팅을 막아내는 것을 종종 반사 동작이라고 하지만, 실제 메커니즘은 더 복잡합니다. 프로 축구 선수의 슛 속도는 거리와 기술에 따라 시속 60~130km입니다. 페널티 스팟——약 11미터——에서 골라인까지 도달하는 데 약 400밀리초가 걸립니다. 페널티 박스 안 좁은 각도에서는 이 시간이 200ms 미만으로 줄어듭니다.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "문제는 이것입니다: 건강한 성인의 평균 단순 시각 반응 시간은 약 200-250ms입니다. 이건 공을 보고 운동 반응을 시작하는 데 걸리는 시간일 뿐——골문을 가로지르는 몸의 이동은 포함하지 않습니다. 골키퍼의 다이빙은 거리를 커버하는 데 300-500ms가 더 필요합니다. 순수 반응 수학으로만 계산하면, 정확한 각도의 근거리 슛을 막아내는 건 거의 불가능해야 합니다.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "그런데 프로 축구에서 골키퍼는 페널티킥의 약 22-24%를 막아내고, 오픈 플레이에서는 더 많은 슛을 선방합니다. 어떻게? 답은 초인적인 반사신경이 아니라 예측——그리고 여기서 보지냐의 40년 경험이 가장 큰 자산이 됩니다.",
+        },
+        {
+          type: "h2",
+          content: "왜 예측이 보지냐 골키퍼로서의 비밀 무기였나",
+        },
+        {
+          type: "paragraph",
+          content:
+            "엘리트 골키퍼에 대한 연구는 일관되게 그들이 단순 반응 테스트에서 일반인보다 빠르지 않다는 것을 보여줍니다. 2019년 스포츠 과학 저널에 발표된 연구에 따르면 프로 골키퍼의 단순 반응 시간은 평균 약 210ms——훈련된 비운동선수와 거의 같았습니다. 차이를 만든 것은 슈팅 전 단서를 읽는 능력이었습니다: 슈터의 골반 각도, 지지발 위치, 접근 러닝, 몸의 기울기. 이 단서들은 공이 차이기 100-300ms 전에 나타납니다.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "이 신호를 읽음으로써 경험 많은 골키퍼는 실제로 공이 발을 떠나기 전에 다이빙을 시작합니다. 그래서 40세의 보지냐가 더 빠른 반사신경을 가진 22세가 놓칠 수 있는 선방을 해낼 수 있는 것입니다. 원시 반응 속도는 20대 중반에 정점을 찍고 점차 느려집니다——반응 시간과 나이에 관한 글에서 다룬 바 있습니다. 하지만 예측은 학습된 기술이며, 매 경기, 매 슛, 매 패턴마다 향상됩니다. 카보베르데 대표팀 91경기 출장(팀 역사 2위), 보지냐는 대부분의 골키퍼가 두 번의 프로 경력에서 볼 슈팅 패턴보다 더 많은 것을 보아왔습니다.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "스페인 경기 리플레이를 보면 명확히 알 수 있습니다. 여러 선방에서 보지냐는 스페인 슈터가 슈팅 동작을 완료하기 전에 이미 체중을 이동하고 발을 맞추고 있었습니다. 추측이 아니라——읽고 있었습니다. 골반이 열리면 파 포스트 컬링, 지지발이 가까운 코너를 가리키면. 이 미세 신호들은 수천 번의 슛을 맞아본 경험이 골키퍼의 시각 처리 시스템에 새겨넣은 것입니다.",
+        },
+        {
+          type: "h2",
+          content: "골키퍼급 반응 시간을 훈련할 수 있나요?",
+        },
+        {
+          type: "paragraph",
+          content:
+            "라민 야말의 시속 130km 슛을 곧 마주할 일은 없겠지만, 보지냐의 퍼포먼스를 가능하게 한 원칙은 반응 속도를 높이고 싶은 누구에게나 적용됩니다:",
+        },
+        {
+          type: "list",
+          items: [
+            "구체적인 과제를 연습하세요. 반응 시간은 과제 특이적입니다. 클릭을 빠르게 하고 싶으면 클릭을, 세이브를 빠르게 하고 싶으면 세이브를 연습하세요. 속도를 만드는 신경 경로는 반복을 통해 구축됩니다——일반적인 체력이 아닙니다.",
+            "반사신경만이 아니라 예측을 훈련하세요. 운전, 게임, 스포츠——어느 분야든 가장 빠르게 반응하는 것처럼 보이는 사람은 보통 상황을 가장 일찍 읽는 사람입니다. 해당 분야의 패턴을 연구하세요.",
+            "원시 속도도 중요합니다. 예측은 느린 반응 시간을 보완하지만 대체하지 않습니다. 정기적인 테스트와 충분한 수면으로 단순 반응 시간을 예리하게 유지하는 것은 특히 나이가 들수록 중요합니다.",
+            "경험은 누적됩니다. 매 경기, 매 라운드, 매 세션마다 패턴 라이브러리가 늘어납니다. 25세는 더 빠른 원시 반사를 가질 수 있지만, 꾸준히 훈련해온 40세는 더 큰 패턴 데이터베이스를 가지고 있습니다. 그게 보지냐의 강점입니다.",
+          ],
+        },
+        {
+          type: "h2",
+          content: "골키퍼 반응 시간 테스트하기",
+        },
+        {
+          type: "paragraph",
+          content:
+            "보지냐의 퍼포먼스는 수십 년의 골키퍼 경험 위에 세워졌지만, 모든 골키퍼에게는 시작점이 있습니다——그리고 그 시작점은 자신이 실제로 얼마나 빠른지 아는 것입니다. 우리의 반응 시간 테스트는 브라우저급 정밀 타이밍으로 단순 시각 반응 시간을 밀리초 단위로 측정합니다. 5라운드, 하나의 평균 점수. 가입 없이, 앱 다운로드 없이, 트릭 없이.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "자신이 어디에 있는지 궁금하다면——프로 운동선수의 150-200ms 범위에 가까운지, 일반 성인의 200-300ms 평균에 가까운지——확인하는 방법은 하나뿐입니다. 지금 시도해서 예측을 뒷받침할 원시 속도가 있는지 확인해보세요.",
+        },
+        {
+          type: "highlight",
+          content:
+            "무료 5라운드 반응 시간 테스트 → 프로 운동선수 및 골키퍼와 반사 신경을 비교해보세요.",
         },
       ],
     },
@@ -941,6 +1146,109 @@ export const BLOG_POST_TRANSLATIONS: Partial<
         },
       ],
     },
+    "goalkeeper-reaction-time-vozinha-world-cup": {
+      title:
+        "40歳GKの反応時間がスペインを無失点に抑えた理由：ボジーニャのワールドカップ好守の科学",
+      excerpt:
+        "ボジーニャが2026年W杯スペイン戦で7セーブを記録。GKの反応時間科学から何が見えるか。",
+      readTime: "7分で読める",
+      sections: [
+        {
+          type: "paragraph",
+          content:
+            "カーボベルデが国として初のワールドカップのピッチに立ったとき、オッズは残酷だった。世界67位対2位。ヨーロッパのマイナーリーグ出身の選手たちが、チャンピオンズリーグ優勝者を擁するスペインに挑む。ブックメーカーは3〜4点差を予想した。スコアボードはゼロ。その理由は1番のユニフォームを着て、ボジーニャという愛称で呼ばれる選手だった。",
+        },
+        {
+          type: "h2",
+          content: "試合レビュー：ボジーニャ対スペイン",
+        },
+        {
+          type: "paragraph",
+          content:
+            "2026年6月14日、ジョジマル・ジョゼ・エヴォラ・ディアス——誰もがボジーニャと呼ぶ彼——は、スコアを忘れてただ彼のプレーに見入ってしまうようなパフォーマンスを見せた。予選で1試合平均2得点以上のスペイン攻撃陣を相手に7セーブ。必死のブロックや運任せのこぼれ球ではない——シューターの体の形を読み、足を合わせ、手をボールの軌道に伸ばしたクリーンなセーブだった。試合は0-0で終わり、ボジーニャはMVPに選ばれた。",
+        },
+        {
+          type: "paragraph",
+          content:
+            "彼は40歳12日でこれを成し遂げ、ワールドカップデビュー最年長記録を作った。ワールドカップ史上3番目に高齢の完封GKにもなり、1966年の記録開始以来、40歳以上のGKとして1試合最多セーブ2位を記録した。モルドバやキプロスのリーグでプレーしていた選手にしては悪くない。",
+        },
+        {
+          type: "h2",
+          content: "ゴールキーパーの反応時間の課題",
+        },
+        {
+          type: "paragraph",
+          content:
+            "ペナルティキックや至近距離のシュートをセーブするのは反射動作とよく言われるが、実際のメカニズムはもっと複雑だ。プロサッカー選手のシュート速度は距離と技術により時速60〜130km。ペナルティスポット——約11メートル——からゴールラインに到達するまで約400ミリ秒。ペナルティエリア内の鋭い角度からだと、その時間は200ms未満に縮まる。",
+        },
+        {
+          type: "paragraph",
+          content:
+            "問題はここだ：健康な大人の平均的な単純視覚反応時間は約200-250ms。これはボールを見て運動反応を開始するだけの時間——ゴールを横切る体の移動は含まない。GKのダイビングには距離をカバーするのにさらに300-500msが必要だ。純粋な反応の計算だけで言えば、コースの鋭い近距離シュートを止めるのはほぼ不可能なはずだ。",
+        },
+        {
+          type: "paragraph",
+          content:
+            "それでもプロサッカーではGKがペナルティキックの約22-24%を止め、オープンプレーではさらに多くのシュートをセーブしている。どうやって？答えは超人的な反射神経ではなく、予測——そしてここでボジーニャの40年の経験が最大の武器になる。",
+        },
+        {
+          type: "h2",
+          content: "なぜ予測がボジーニャのGKとしての秘密兵器だったのか",
+        },
+        {
+          type: "paragraph",
+          content:
+            "エリートGKに関する研究は一貫して、彼らが単純反応テストでは一般の人より速くないことを示している。2019年にスポーツ科学ジャーナルに発表された研究では、プロGKの単純反応時間は平均約210ms——トレーニングを受けた非アスリートとほぼ同じだった。差をつけたのはシュート前のキューを読む力だった。シューターの腰の角度、軸足の位置、助走、体の傾き。これらのキューはボールが蹴られる100-300ms前に現れる。",
+        },
+        {
+          type: "paragraph",
+          content:
+            "この信号を読むことで、経験豊富なGKは実際にボールが足を離れる前にダイビングを開始する。だから40歳のボジーニャが、より速い反射神経を持つ22歳が見逃すかもしれないセーブをできるのだ。生の反応速度は20代半ばでピークに達し、その後徐々に低下する——反応時間と年齢についての記事で取り上げた通りだ。しかし予測は学習されたスキルであり、試合ごと、シュートごと、パターンごとに向上する。カーボベルデ代表91キャップ（チーム歴代2位）、ボジーニャは大半のGKが2度のプロキャリアで見るよりも多くのシュートパターンを見てきた。",
+        },
+        {
+          type: "paragraph",
+          content:
+            "スペイン戦のリプレイを見ればはっきりわかる。何度かのセーブで、ボジーニャはスペインのシューターがシュート動作を完了する前にすでに体重を移動し、足を合わせていた。当てずっぽうではなく——読んでいた。腰が開けばファーポストへのカーブ、軸足がニアコーナーを指せば。こうした微小な信号は、何千本ものシュートを受けてきた経験がGKの視覚処理システムに刻み込んだものだ。",
+        },
+        {
+          type: "h2",
+          content: "GKレベルの反応時間を鍛えられるか？",
+        },
+        {
+          type: "paragraph",
+          content:
+            "ラミン・ヤマルの時速130kmのシュートをすぐに受けることはないかもしれないが、ボジーニャのパフォーマンスを可能にした原則は、反応速度を上げたい誰にでも当てはまる：",
+        },
+        {
+          type: "list",
+          items: [
+            "具体的な課題を練習する。反応時間は課題特異的だ。クリックを速くしたいならクリックを、セーブを速くしたいならセーブを練習する。速度を生む神経回路は反復によって構築される——一般的な体力ではない。",
+            "反射だけでなく予測を鍛える。運転、ゲーム、スポーツ——どの分野でも最も速く反応しているように見える人は、たいてい状況を最も早く読んでいる人だ。自分の活動のパターンを研究しよう。",
+            "生の速度も大切だ。予測は遅い反応時間を補うが、代わりにはならない。定期的なテストと十分な睡眠で単純反応時間を維持することは、特に年齢とともに重要だ。",
+            "経験は蓄積する。試合ごと、ラウンドごと、セッションごとにパターンライブラリが増える。25歳はより速い生の反射を持つかもしれないが、継続的にトレーニングしてきた40歳は引き出せるパターンのデータベースが大きい。それがボジーニャの強みだ。",
+          ],
+        },
+        {
+          type: "h2",
+          content: "GKの反応時間をテストする",
+        },
+        {
+          type: "paragraph",
+          content:
+            "ボジーニャのパフォーマンスは数十年のGK経験の上に成り立っているが、すべてのGKにスタート地点がある——そしてそのスタート地点は自分が実際にどれくらい速いかを知ることだ。当サイトの反応時間テストは、ブラウザレベルの精密タイミングで単純視覚反応時間をミリ秒単位で測定する。5ラウンド、1つの平均スコア。登録なし、アプリのダウンロードなし、引っかけなし。",
+        },
+        {
+          type: "paragraph",
+          content:
+            "自分がどこに位置するか知りたい——プロアスリートの150-200msに近いのか、一般的な大人の200-300msの平均に近いのか——確かめる方法は一つだけ。今すぐ試して、予測を裏付ける生の速度があるか確認しよう。",
+        },
+        {
+          type: "highlight",
+          content:
+            "無料の5ラウンド反応時間テスト → プロアスリートやGKと自分の反射神経を比較してみよう。",
+        },
+      ],
+    },
   },
   de: {
     "what-is-reaction-time": {
@@ -1213,6 +1521,109 @@ export const BLOG_POST_TRANSLATIONS: Partial<
         },
       ],
     },
+    "goalkeeper-reaction-time-vozinha-world-cup": {
+      title:
+        "Wie die Reaktionszeit eines 40-jährigen Torwarts Spanien aussperrte: Die Wissenschaft hinter Vozinhas World-Cup-Heldentum",
+      excerpt:
+        "Vozinha hielt 7 Schüsse gegen Spanien bei der WM 2026. Was die Torwart-Reaktionszeit-Forschung darüber verrät.",
+      readTime: "7 Min. Lesezeit",
+      sections: [
+        {
+          type: "paragraph",
+          content:
+            "Als Kap Verde zum ersten WM-Spiel der Verbandsgeschichte auf den Platz lief, waren die Quoten erbarmungslos. Welt-Rang 67 gegen Nummer 2. Eine Mannschaft aus Spielern kleinerer europäischer Ligen gegen eine spanische Auswahl voller Champions-League-Sieger. Die Buchmacher tippten auf drei oder vier Tore Differenz. Das Scoreboard zeigte null. Der Grund trug die Rücknummer 1 und den Spitznamen Vozinha.",
+        },
+        {
+          type: "h2",
+          content: "Was passierte: Vozinha gegen Spanien",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Am 14. Juni 2026 lieferte Josimar José Évora Dias — überall als Vozinha bekannt — die Art von Leistung ab, bei der man das Ergebnis vergisst und einfach nur dem Spieler zuschaut. Sieben Paraden gegen eine spanische Offensive, die in der Qualifikation im Schnitt mehr als zwei Tore pro Spiel erzielt hatte. Keine verzweifelten Blocks oder glückliche Abpraller — saubere, zeitgenaue Paraden, bei denen er die Körperhaltung des Schützen las, die Füße stellte und die Hände in die Schussbahn brachte. Das Spiel endete 0-0. Vozinha wurde Spieler des Spiels.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Er tat das mit 40 Jahren und 12 Tagen und wurde damit der älteste Spieler, der jemals sein WM-Debüt gab. Er wurde zudem der drittälteste Torhüter, der bei einer WM ohne Gegentor blieb, und erzielte die zweitmeisten Paraden eines Torwarts über 40 in einem einzelnen WM-Spiel seit Beginn der Aufzeichnungen 1966. Für jemanden, der zuvor in Moldawien und Zypern gespielt hat, gar nicht übel.",
+        },
+        {
+          type: "h2",
+          content: "Die Reaktionszeit-Herausforderung des Torwarts",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Einen Elfmeter oder einen Schuss aus kurzer Distanz zu halten, wird oft als Reflexaktion beschrieben, aber die Mechanik ist komplexer. Ein Profifußballer schießt den Ball mit 60 bis 130 km/h, je nach Entfernung und Technik. Vom Elfmeterpunkt — etwa 11 Meter — erreicht der Ball die Torlinie in rund 400 Millisekunden. Aus dem Strafraum bei spitzeren Winkeln kann sich dieses Zeitfenster auf unter 200ms verkürzen.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Hier liegt das Problem: Die durchschnittliche einfache visuelle Reaktionszeit eines gesunden Erwachsenen liegt bei etwa 200-250ms. Das ist lediglich die Zeit, um den Ball zu sehen und eine motorische Reaktion einzuleiten — ohne die Körperbewegung quer durchs Tor. Ein Hechtsprung des Torwarts braucht weitere 300-500ms, um die Distanz zu überbrücken. Nach reiner Reaktionsmathematik sollte es also nahezu unmöglich sein, einen gut platzierten Nahschuss zu halten.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Trotzdem halten Torhüter in etwa 22-24% der Elfmeter im Profifußball, und aus dem laufenden Spiel wehren sie noch deutlich mehr Schüsse ab. Wie? Die Antwort lautet nicht übermenschliche Reflexe, sondern Antizipation — und hier wird Vozinhas 40 Jahre Erfahrung zu seinem größten Kapital.",
+        },
+        {
+          type: "h2",
+          content: "Warum Antizipation Vozinhas Geheimwaffe als Torwart war",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Forschung an Elite-Torhütern zeigt immer wieder, dass sie in einfachen Reaktionstests nicht schneller sind als Durchschnittsmenschen. Eine 2019 im Journal of Sports Sciences veröffentlichte Studie fand heraus, dass die einfache Reaktionszeit professioneller Torhüter im Durchschnitt bei etwa 210ms lag — nahezu identisch mit trainierten Nicht-Athleten. Was sie auszeichnete, war die Fähigkeit, Vorabsignale des Schützen zu lesen: Hüftwinkel, Standfußposition, Anlauf und Körperneigung. Diese Signale entstehen 100-300ms bevor der Ball überhaupt getroffen wird.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Indem er diese Signale liest, beginnt ein erfahrener Torwart seinen Hechtsprung tatsächlich bevor der Ball den Fuß verlässt. Deshalb kann ein 40-Jähriger wie Vozinha Paraden zeigen, die ein 22-Jähriger mit schnelleren Reflexen verpassen könnte. Die reine Reaktionsgeschwindigkeit erreicht in den mittleren Zwanzigern ihren Höhepunkt und verlangsamt sich dann allmählich — darüber haben wir in unserem Artikel zur Reaktionszeit und Alterung berichtet. Aber Antizipation ist eine erlernte Fähigkeit, die sich mit jedem Spiel, jedem Schuss, jedem erkannten Muster verbessert. Mit 91 Länderspielen für Kap Verde — zweitmeiste in der Verbandsgeschichte — hat Vozinha mehr Schussmuster gesehen, als die meisten Torhüter in zwei kompletten Laufbahnen erleben.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Schau dir die Wiederholungen des Spanienspiels an und du siehst es deutlich. Bei mehreren Paraden hatte Vozinha sein Gewicht bereits verlagert und die Füße positioniert, bevor die spanischen Schützen ihre Schussbewegung abgeschlossen hatten. Er riet nicht — er las. Die sich öffnende Hüfte für einen gekurvten Schuss in die lange Ecke. Der Standfuß, der zur nahen Ecke zeigt. Das sind die Mikrosignale, die sich nach Tausenden von gegnerischen Schüssen in das visuelle Verarbeitungssystem eines Torwarts einbrennen.",
+        },
+        {
+          type: "h2",
+          content: "Kannst du Torwart-Niveau-Reaktionszeit trainieren?",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Du wirst wahrscheinlich nicht so bald einen 130-km/h-Schuss von Lamine Yamal abwehren, aber die Prinzipien, die Vozinhas Leistung ermöglichten, gelten für jeden, der schnellere Reflexe will:",
+        },
+        {
+          type: "list",
+          items: [
+            "Übe die spezifische Aufgabe. Reaktionszeit ist aufgabenspezifisch. Wer schneller klicken will, muss klicken üben. Wer schneller parieren will, muss parieren üben. Die Nervenbahnen, die Geschwindigkeit erzeugen, werden durch Wiederholung aufgebaut — nicht durch allgemeine Fitness.",
+            "Trainiere Antizipation, nicht nur Reflexe. In jedem Bereich — Autofahren, Gaming, Sport — wirken die Leute mit den schnellsten Reaktionen meist die, die Situationen am frühesten lesen. Studiere die Muster in deinem Betätigungsfeld.",
+            "Die reine Geschwindigkeit ist trotzdem wichtig. Antizipation kompensiert langsamere Reaktionszeit, ersetzt sie aber nicht. Die einfache Reaktionszeit durch regelmäßige Tests und ausreichenden Schlaf scharf zu halten, bleibt wichtig — besonders mit zunehmendem Alter.",
+            "Erfahrung summiert sich. Jedes Spiel, jede Runde, jede Session erweitert deine Musterbibliothek. Ein 25-Jähriger mag schnellere Reflexe haben, aber ein 40-Jähriger, der konsequent trainiert hat, verfügt über eine größere Muster-Datenbank. Das ist Vozinhas Vorteil.",
+          ],
+        },
+        {
+          type: "h2",
+          content: "Teste deine Torwart-Reaktionszeit",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Vozinhas Leistung beruhte auf Jahrzehnten der Torwart-Erfahrung, aber jeder Torwart fängt irgendwo an — und dieser Anfang heißt verstehen, wie schnell du wirklich bist. Unser Reaktionszeit-Test misst deine einfache visuelle Reaktionszeit in Millisekunden mit browsergenauer Zeitmessung. Fünf Runden, ein Durchschnittswert. Keine Anmeldung, kein App-Download, keine Tricks.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Wenn du wissen willst, wo du stehst — ob du näher am 150-200ms-Bereich eines Profis oder am 200-300ms-Durchschnitt eines erwachsenen Laien liegst — gibt es nur eine Möglichkeit. Probier es jetzt aus und schau, ob du die rohe Geschwindigkeit hast, um deine Antizipation zu untermauern.",
+        },
+        {
+          type: "highlight",
+          content:
+            "Kostenloser 5-Runden-Reaktionszeit-Test → Vergleiche deine Reflexe mit professionellen Athleten und Torhütern.",
+        },
+      ],
+    },
   },
   fr: {
     "what-is-reaction-time": {
@@ -1482,6 +1893,109 @@ export const BLOG_POST_TRANSLATIONS: Partial<
           type: "highlight",
           content:
             "Testez-vous après une bonne nuit puis tard le soir : vous verrez comment la fatigue s'accumule.",
+        },
+      ],
+    },
+    "goalkeeper-reaction-time-vozinha-world-cup": {
+      title:
+        "Comment le temps de réaction d'un gardien de 40 ans a fermé le jeu à l'Espagne : la science derrière l'exploit de Vozinha en Coupe du Monde",
+      excerpt:
+        "Vozinha a réalisé 7 arrêts contre l'Espagne à la Coupe du Monde 2026. Que nous dit la science sur le temps de réaction des gardiens ?",
+      readTime: "7 min de lecture",
+      sections: [
+        {
+          type: "paragraph",
+          content:
+            "Quand le Cap-Vert est monté sur la pelouse pour le premier match de Coupe du Monde de son histoire, les cotes étaient sans pitié. Le 67e mondial contre le 2e. Un effectif de joueurs issus de championnats européens modestes face à une Espagne remplie de vainqueurs de la Ligue des Champions. Les bookmakers tablaient sur trois ou quatre buts d'écart. Le tableau d'affichage indiqua zéro. La raison portait le numéro 1 et le surnom Vozinha.",
+        },
+        {
+          type: "h2",
+          content: "Ce qui s'est passé : Vozinha contre l'Espagne",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Le 14 juin 2026, Josimar José Évora Dias — que tout le monde appelle Vozinha — a livré le genre de performance qui fait oublier le score pour ne regarder que le joueur. Sept arrêts contre une attaque espagnole qui affichait plus de deux buts par match en qualifications. Pas des blocs désespérés ou des déviations chanceuses — des arrêts propres, bien chronométrés, où il lisait la posture du tireur, ajustait ses appuis et plaçait ses mains sur la trajectoire du ballon. Le match s'est terminé sur un 0-0. Vozinha a été élu homme du match.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Il a accompli cela à 40 ans et 12 jours, devenant le joueur le plus âgé à faire ses débuts en Coupe du Monde. Il est aussi devenu le troisième gardien le plus âgé à conserver sa cage inviolée en Coupe du Monde et a réalisé le deuxième plus grand nombre d'arrêts par un gardien de plus de 40 ans en un seul match de Coupe du Monde depuis le début des statistiques en 1966. Pas mal pour un joueur passé par les championnats moldave et chypriote.",
+        },
+        {
+          type: "h2",
+          content: "Le défi du temps de réaction du gardien de but",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Arrêter un penalty ou une frappe de près est souvent décrit comme un réflexe, mais les mécanismes sont plus complexes. Un footballeur professionnel frappe le ballon entre 60 et 130 km/h selon la distance et la technique. Depuis le point de penalty — environ 11 mètres — le ballon atteint la ligne de but en environ 400 millisecondes. Depuis l'intérieur de la surface à des angles plus fermés, cette fenêtre peut se réduire à moins de 200ms.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Voici le problème : le temps de réaction visuelle simple moyen d'un adulte en bonne santé se situe autour de 200-250ms. C'est le temps uniquement pour voir le ballon et initier une réponse motrice — sans compter le mouvement du corps à travers la cage. Le plongeon d'un gardien demande encore 300-500ms supplémentaires pour couvrir la distance. En pur calcul de réaction, arrêter une frappe de près bien placée devrait donc être quasi impossible.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Pourtant, les gardiens arrêtent environ 22-24% des penalties dans le football professionnel, et ils repoussent encore plus de tirs en jeu ouvert. Comment ? La réponse n'est pas des réflexes surhumains, mais l'anticipation — et c'est là que les 40 ans d'expérience de Vozinha deviennent son atout majeur.",
+        },
+        {
+          type: "h2",
+          content: "Pourquoi l'anticipation fut l'arme secrète de Vozinha comme gardien",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Les recherches sur les gardiens d'élite montrent régulièrement qu'ils ne réagissent pas plus vite que la moyenne en test de réaction simple. Une étude de 2019 publiée dans le Journal of Sports Sciences a révélé que le temps de réaction simple des gardiens professionnels tournait autour de 210ms — quasiment identique à celui de non-sportifs entraînés. Ce qui les démarquait, c'était leur capacité à lire les indices pré-tir : l'angle des hanches du tireur, la position du pied d'appui, la course d'élan et l'inclinaison du corps. Ces signaux apparaissent 100-300ms avant que le ballon ne soit frappé.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "En lisant ces signaux, un gardien expérimenté commence effectivement son plongeon avant que le ballon quitte le pied. C'est pourquoi un quadragénaire comme Vozinha peut encore réaliser des arrêts qu'un joueur de 22 ans aux réflexes plus rapides pourrait rater. La vitesse de réaction brute atteint son pic vers le milieu de la vingtaine puis décline progressivement — nous en avons parlé dans notre article sur le temps de réaction et le vieillissement. Mais l'anticipation est une compétence acquise qui s'améliore à chaque match, chaque tir affronté, chaque schéma assimilé. Avec 91 sélections pour le Cap-Vert — deuxième plus grand nombre de l'histoire de la sélection — Vozinha a vu plus de schémas de tir que la plupart des gardiens en deux carrières.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Regardez les ralentis du match contre l'Espagne et vous le verrez clairement. Sur plusieurs arrêts, Vozinha avait déjà déplacé son poids et ajusté ses appuis avant que les tireurs espagnols n'aient terminé leur mouvement de frappe. Il ne devinait pas — il lisait. La hanche qui s'ouvre pour une frappe enroulée au poteau opposé. Le pied d'appui qui pointe vers le poteau proche. Ce sont les micro-signaux que des milliers de tirs reçus gravent dans le système de traitement visuel d'un gardien.",
+        },
+        {
+          type: "h2",
+          content: "Peut-on entraîner un temps de réaction de gardien de but ?",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Vous ne risquez probablement pas de recevoir une frappe à 130 km/h de Lamine Yamal de sitôt, mais les principes qui ont rendu la performance de Vozinha possible s'appliquent à quiconque veut des réflexes plus aiguisés :",
+        },
+        {
+          type: "list",
+          items: [
+            "Entraînez-vous à la tâche spécifique. Le temps de réaction est spécifique à la tâche. Si vous voulez cliquer plus vite, entraînez-vous à cliquer. Si vous voulez arrêter plus vite, entraînez-vous à arrêter. Les voies nerveuses qui génèrent la vitesse se construisent par la répétition — pas par la condition physique générale.",
+            "Entraînez l'anticipation, pas seulement les réflexes. Dans tous les domaines — conduite, jeu vidéo, sport — ceux qui semblent avoir les réactions les plus rapides sont généralement ceux qui lisent les situations le plus tôt. Étudiez les schémas de votre activité.",
+            "La vitesse brute compte aussi. L'anticipation compense un temps de réaction plus lent, mais ne le remplace pas. Garder son temps de réaction simple affûté grâce à des tests réguliers et un sommeil suffisant reste important, surtout en vieillissant.",
+            "L'expérience s'accumule. Chaque match, chaque tour, chaque session enrichit votre bibliothèque de schémas. Un joueur de 25 ans peut avoir de meilleurs réflexes bruts, mais un quadragénaire qui s'entraîne régulièrement dispose d'une base de données de schémas plus vaste. C'est l'avantage de Vozinha.",
+          ],
+        },
+        {
+          type: "h2",
+          content: "Testez votre temps de réaction de gardien",
+        },
+        {
+          type: "paragraph",
+          content:
+            "La performance de Vozinha repose sur des décennies d'expérience entre les poteaux, mais chaque gardien commence quelque part — et ce quelque part, c'est comprendre à quelle vitesse on est réellement. Notre test de temps de réaction mesure votre temps de réaction visuelle simple en millisecondes avec une précision de niveau navigateur. Cinq tours, un score moyen. Pas d'inscription, pas d'application à télécharger, pas d'artifice.",
+        },
+        {
+          type: "paragraph",
+          content:
+            "Si vous êtes curieux de savoir où vous vous situez — plus proche des 150-200ms d'un athlète professionnel ou de la moyenne adulte de 200-300ms — il n'y a qu'un seul moyen de le savoir. Essayez maintenant et voyez si votre vitesse brute soutient votre anticipation.",
+        },
+        {
+          type: "highlight",
+          content:
+            "Test gratuit de temps de réaction en 5 tours → Comparez vos réflexes à ceux des athlètes professionnels et des gardiens de but.",
         },
       ],
     },

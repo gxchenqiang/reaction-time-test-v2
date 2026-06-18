@@ -526,6 +526,111 @@ export const BLOG_POSTS: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "goalkeeper-reaction-time-vozinha-world-cup",
+    title:
+      "How a 40-Year-Old Goalkeeper's Reaction Time Shut Out Spain: The Science Behind Vozinha's World Cup Heroics",
+    excerpt:
+      "Vozinha made 7 saves against Spain at the 2026 World Cup at age 40. Goalkeeper reaction time science explains how.",
+    date: "2026-06-19",
+    readTime: "7 min read",
+    sections: [
+      {
+        type: "paragraph",
+        content:
+          "When Cape Verde walked onto the pitch for their first-ever World Cup match, the betting odds were brutal. World No. 67 against No. 2. A squad of players mostly from smaller European leagues against a Spanish side packed with Champions League winners. The smart money said three or four goals. The scoreboard said zero. The reason wore the No. 1 shirt and the nickname Vozinha.",
+      },
+      {
+        type: "h2",
+        content: "What Happened: Vozinha vs. Spain",
+      },
+      {
+        type: "paragraph",
+        content:
+          "On June 14, 2026, Josimar José Évora Dias — known everywhere as Vozinha — turned in the kind of performance that makes you forget about the scoreline and just watch the man. Seven saves against a Spanish attack that had been averaging over two goals per game in qualifying. Not desperate blocks or lucky deflections — clean, timed saves where he read the shooter's body shape, set his feet, and got his hands to the ball. The match finished 0-0. Vozinha won Player of the Match.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "He did this at 40 years and 12 days old, making him the oldest player ever to make his World Cup debut. He also became the third-oldest goalkeeper to keep a World Cup clean sheet and recorded the second-most saves by a goalkeeper over 40 in a single World Cup match since records began in 1966. Not bad for a guy whose previous clubs include stints in Moldova and Cyprus.",
+      },
+      {
+        type: "h2",
+        content: "The Goalkeeper's Reaction Time Challenge",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Saving a penalty kick or a close-range shot is often described as a reflex action, but the mechanics are more complex than that. A professional footballer strikes the ball at speeds between 60 and 130 km/h depending on distance and technique. From the penalty spot — roughly 11 meters — the ball reaches the goal line in about 400 milliseconds. From inside the box at sharper angles, that window can shrink to under 200ms.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Here's the problem: the average simple visual reaction time for a healthy adult sits around 200-250ms. That's the time just to see the ball and initiate a motor response — not to actually move your body across the goalmouth. A goalkeeper's dive takes another 300-500ms to cover the distance. So by pure reaction math, saving a well-placed close-range shot should be nearly impossible.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Yet goalkeepers save roughly 22-24% of penalties in professional football, and they stop far more shots from open play. How? The answer isn't superhuman reflexes. It's anticipation — and that's where Vozinha's 40 years of experience become his biggest asset.",
+      },
+      {
+        type: "h2",
+        content: "Why Vozinha's Anticipation Was His Secret Weapon as a Goalkeeper",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Research on elite goalkeepers consistently shows that they don't react faster than average people in simple reaction tests. A 2019 study published in the Journal of Sports Sciences found that professional goalkeepers' simple reaction times averaged around 210ms — almost identical to trained non-athletes. What set them apart was their ability to read pre-shot cues: the shooter's hip angle, plant foot position, approach run, and body lean. These cues emerge 100-300ms before the ball is even struck.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "By reading these signals, an experienced goalkeeper effectively starts their dive before the ball leaves the foot. This is why a 40-year-old like Vozinha can still make saves that a 22-year-old with faster raw reflexes might miss. Raw reaction speed peaks in your mid-20s and gradually slows — we've covered that in our article on reaction time and aging. But anticipation is a learned skill that improves with every match, every shot faced, every pattern absorbed. At 91 caps for Cape Verde — second-most in the nation's history — Vozinha has seen more shooting patterns than most goalkeepers will in two careers.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Watch the replays of the Spain match and you'll see it clearly. On several saves, Vozinha was already shifting his weight and setting his feet before the Spanish shooters had completed their striking motion. He wasn't guessing — he was reading. The hip opening for a far-post curler. The plant foot pointing toward the near corner. These are the micro-signals that years of facing thousands of shots burn into a goalkeeper's visual processing system.",
+      },
+      {
+        type: "h2",
+        content: "Can You Train Goalkeeper-Level Reaction Time?",
+      },
+      {
+        type: "paragraph",
+        content:
+          "You probably won't face a 130 km/h shot from Lamine Yamal anytime soon, but the same principles that made Vozinha's performance possible apply to anyone who wants sharper reflexes:",
+      },
+      {
+        type: "list",
+        items: [
+          "Practice the specific task. Reaction time is task-specific. If you want faster clicks, practice clicking. If you want faster saves, practice saving. The neural pathways that drive speed are built through repetition — not general fitness.",
+          "Train anticipation, not just reflexes. In any domain — driving, gaming, sports — the people who seem to have the fastest reactions are usually the ones who read situations earliest. Study patterns in your activity of choice.",
+          "Don't ignore raw speed. Anticipation compensates for slower reaction time, but it doesn't replace it. Keeping your simple reaction time sharp through regular testing and adequate sleep still matters, especially as you age.",
+          "Experience compounds. Every match, every round, every session adds to your pattern library. A 25-year-old might have faster raw reflexes, but a 40-year-old who has been training consistently has a larger database of patterns to draw from. That's Vozinha's edge.",
+        ],
+      },
+      {
+        type: "h2",
+        content: "Test Your Goalkeeper Reaction Time",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Vozinha's performance was built on decades of shot-stopping experience, but every goalkeeper starts somewhere — and that somewhere is understanding how fast you actually are. Our reaction time test measures your simple visual reaction time in milliseconds using browser-grade precision timing. Five rounds, one average score. No sign-up, no app download, no tricks.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "If you're curious where you stand — whether you're closer to a pro athlete's 150-200ms range or the typical 200-300ms adult average — there's only one way to find out. Try it now and see if you've got the raw speed to back up your anticipation.",
+      },
+      {
+        type: "highlight",
+        content:
+          "Take the free 5-round reaction time test → See how your reflexes compare to professional athletes and goalkeepers.",
+      },
+    ],
+  },
 ];
 
 export function getBlogPosts(lang: Lang = DEFAULT_LANG): BlogPost[] {
