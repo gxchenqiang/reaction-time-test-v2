@@ -1,19 +1,54 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 import { Lang, SUPPORTED_LANGS, LANG_LABELS, getLangPath } from "@/lib/i18n";
 import { Translations } from "@/lib/translations";
 
 interface HeaderProps {
   t: Translations;
   lang: Lang;
-  currentPath?: string; // e.g. "" | "/blog" | "/about" | "/contact"
+  currentPath?: string; // e.g. "" | "/blog" | "/blog/slug" | "/about" | "/contact"
 }
 
-export default function Header({ t, lang, currentPath = "" }: HeaderProps) {
+/**
+ * Strip the language prefix (and optional .html suffix) from a pathname
+ * to get the language-neutral path.
+ * e.g. "/zh/blog/my-post"       → "/blog/my-post"
+ *      "/zh/blog/my-post.html"  → "/blog/my-post"
+ *      "/blog/my-post"          → "/blog/my-post"
+ *      "/zh"                    → ""
+ *      "/"                      → ""
+ */
+function stripLangPrefix(pathname: string): string {
+  if (!pathname || pathname === "/") return "";
+  // Remove .html suffix if present (common in static hosting)
+  let clean = pathname.replace(/\.html$/, "");
+  const segments = clean.split("/").filter(Boolean);
+  if (segments.length > 0 && SUPPORTED_LANGS.includes(segments[0] as Lang)) {
+    const remaining = segments.slice(1).join("/");
+    return remaining ? `/${remaining}` : "";
+  }
+  return clean;
+}
+
+export default function Header({ t, lang, currentPath }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Prefer the actual browser pathname (with lang prefix stripped) when the
+  // component is mounted in the browser, because it always reflects the real
+  // URL.  Fall back to the `currentPath` prop for SSR / static pre-render.
+  const languageSwitchPath = mounted
+    ? stripLangPrefix(pathname)
+    : (currentPath ?? "");
 
   const navLinks = [
     { path: "", href: getLangPath(lang, ""), label: t.navHome },
@@ -21,11 +56,10 @@ export default function Header({ t, lang, currentPath = "" }: HeaderProps) {
     { path: "/about", href: getLangPath(lang, "/about"), label: t.navAbout },
     { path: "/contact", href: getLangPath(lang, "/contact"), label: t.navContact },
   ];
-  const languageSwitchPath = currentPath;
 
   const isActive = (path: string) => {
-    if (path === "") return currentPath === "";
-    return currentPath === path || currentPath.startsWith(`${path}/`);
+    if (path === "") return languageSwitchPath === "";
+    return languageSwitchPath === path || languageSwitchPath.startsWith(`${path}/`);
   };
 
   return (
