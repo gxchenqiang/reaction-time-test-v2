@@ -1,5 +1,6 @@
 "use client";
 
+import { c } from "@/lib/challenge/strings";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -54,12 +55,18 @@ export default function Header({ t, lang, currentPath }: HeaderProps) {
     { path: "", href: getLangPath(lang, ""), label: t.navHome },
     { path: "/blog", href: getLangPath(lang, "/blog"), label: t.navBlog },
     { path: "/about", href: getLangPath(lang, "/about"), label: t.navAbout },
-    { path: "/contact", href: getLangPath(lang, "/contact"), label: t.navContact },
+    {
+      path: "/contact",
+      href: getLangPath(lang, "/contact"),
+      label: t.navContact,
+    },
   ];
 
   const isActive = (path: string) => {
     if (path === "") return languageSwitchPath === "";
-    return languageSwitchPath === path || languageSwitchPath.startsWith(`${path}/`);
+    return (
+      languageSwitchPath === path || languageSwitchPath.startsWith(`${path}/`)
+    );
   };
 
   return (
@@ -94,43 +101,51 @@ export default function Header({ t, lang, currentPath }: HeaderProps) {
         {/* Right side: Language switcher + mobile menu toggle */}
         <div className="flex items-center gap-2">
           {/* Language dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setLangOpen((o) => !o)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-colors"
-              aria-label="Select language"
-            >
-              <span>🌐</span>
-              <span className="hidden sm:inline">{LANG_LABELS[lang]}</span>
-              <span className="text-xs">▾</span>
-            </button>
+          {currentPath === "/challenge" ? (
+            <span className="text-xs text-gray-500" title={c.english}>
+              English
+            </span>
+          ) : (
+            <div className="relative">
+              <button
+                onClick={() => setLangOpen((o) => !o)}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                aria-label="Select language"
+              >
+                <span>🌐</span>
+                <span className="hidden sm:inline">{LANG_LABELS[lang]}</span>
+                <span className="text-xs">▾</span>
+              </button>
 
-            {langOpen && (
-              <>
-                <div
-                  className="fixed inset-0 z-10"
-                  onClick={() => setLangOpen(false)}
-                />
-                <div className="absolute right-0 top-full mt-1 w-44 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-20">
-                  {SUPPORTED_LANGS.map((l) => (
-                    <Link
-                      key={l}
-                      href={getLangPath(l, languageSwitchPath)}
-                      onClick={() => setLangOpen(false)}
-                      className={`flex items-center justify-between px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors ${
-                        l === lang
-                          ? "text-gray-900 font-semibold"
-                          : "text-gray-500"
-                      }`}
-                    >
-                      <span>{LANG_LABELS[l]}</span>
-                      {l === lang && <span className="text-green-500">✓</span>}
-                    </Link>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
+              {langOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-10"
+                    onClick={() => setLangOpen(false)}
+                  />
+                  <div className="absolute right-0 top-full mt-1 w-44 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-20">
+                    {SUPPORTED_LANGS.map((l) => (
+                      <Link
+                        key={l}
+                        href={getLangPath(l, languageSwitchPath)}
+                        onClick={() => setLangOpen(false)}
+                        className={`flex items-center justify-between px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors ${
+                          l === lang
+                            ? "text-gray-900 font-semibold"
+                            : "text-gray-500"
+                        }`}
+                      >
+                        <span>{LANG_LABELS[l]}</span>
+                        {l === lang && (
+                          <span className="text-green-500">✓</span>
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          )}
 
           {/* Mobile hamburger */}
           <button

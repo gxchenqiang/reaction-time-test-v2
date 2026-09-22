@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { c } from "@/lib/challenge/strings";
 import { useRef } from "react";
 import { TestRound } from "@/lib/stats";
 import { Translations } from "@/lib/translations";
@@ -337,6 +339,8 @@ export default function ResultsPanel({
           ))}
         </div>
       </div>
+
+      <Link href="/challenge" className="block text-center m-6 challenge-primary">{c.practiceCTA}</Link>
 
       {/* Actions */}
       <div className="p-6 flex flex-col gap-3">

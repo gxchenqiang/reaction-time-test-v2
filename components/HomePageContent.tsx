@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { challengeStrings } from "@/lib/challenge/strings";
 import { Lang } from "@/lib/i18n";
 import { t as getT } from "@/lib/translations";
 import { ADS_ENABLED } from "@/lib/config";
@@ -92,6 +94,12 @@ export default function HomePageContent({ lang }: HomePageContentProps) {
 
             {/* Test component */}
             <ReactionTest t={tr} lang={lang} />
+
+            <div className="max-w-2xl mx-auto mt-5 flex flex-wrap justify-center gap-3 text-sm">
+              <Link href="/challenge" className="challenge-primary">{challengeStrings(lang).challengeFriend}</Link>
+              <Link href="/challenge?mode=advanced" className="challenge-secondary">{challengeStrings(lang).tryAdvanced}</Link>
+            </div>
+            {lang !== "en" && <p className="text-center text-xs text-gray-500 mt-2">{challengeStrings(lang).english}</p>}
 
             {/* Fun facts */}
             <div className="mt-8">

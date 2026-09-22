@@ -48,5 +48,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
+  urls.push({ url: canonicalUrl("en", "/challenge"), changeFrequency: "monthly", priority: 0.7 });
   return urls;
 }

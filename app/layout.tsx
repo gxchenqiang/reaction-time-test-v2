@@ -2,6 +2,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Analytics from "@/components/Analytics";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -39,14 +40,8 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <head>
-        <script
-          defer
-          data-domain="reactiontimetestonline.com"
-          src="https://app.pageview.app/js/script.js"
-        ></script>
-      </head>
       <body className={`${inter.className} bg-gray-50 min-h-screen`}>
+        <Analytics />
         {children}
       </body>
     </html>

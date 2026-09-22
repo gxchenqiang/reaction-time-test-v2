@@ -1,3 +1,4 @@
+import { c } from "@/lib/challenge/strings";
 import Link from "next/link";
 import { Lang, SUPPORTED_LANGS, LANG_LABELS, getLangPath } from "@/lib/i18n";
 import { Translations } from "@/lib/translations";
@@ -5,6 +6,7 @@ import { Translations } from "@/lib/translations";
 interface FooterProps {
   t: Translations;
   lang: Lang;
+  challenge?: boolean;
 }
 
 const FOOTER_COPY: Record<
@@ -47,7 +49,7 @@ const FOOTER_COPY: Record<
   },
 };
 
-export default function Footer({ t, lang }: FooterProps) {
+export default function Footer({ t, lang, challenge = false }: FooterProps) {
   const year = new Date().getFullYear();
   const copy = FOOTER_COPY[lang];
 
@@ -92,22 +94,26 @@ export default function Footer({ t, lang }: FooterProps) {
             <p className="font-semibold text-gray-600 text-sm uppercase tracking-wide mb-3">
               {copy.languages}
             </p>
-            <ul className="space-y-2">
-              {SUPPORTED_LANGS.map((l) => (
-                <li key={l}>
-                  <Link
-                    href={getLangPath(l, "")}
-                    className={`text-sm transition-colors ${
-                      l === lang
-                        ? "text-gray-900 font-semibold"
-                        : "text-gray-400 hover:text-gray-700"
-                    }`}
-                  >
-                    {LANG_LABELS[l]}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {challenge ? (
+              <p className="text-sm text-gray-500">{c.english}</p>
+            ) : (
+              <ul className="space-y-2">
+                {SUPPORTED_LANGS.map((l) => (
+                  <li key={l}>
+                    <Link
+                      href={getLangPath(l, "")}
+                      className={`text-sm transition-colors ${
+                        l === lang
+                          ? "text-gray-900 font-semibold"
+                          : "text-gray-400 hover:text-gray-700"
+                      }`}
+                    >
+                      {LANG_LABELS[l]}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
 
@@ -116,10 +122,16 @@ export default function Footer({ t, lang }: FooterProps) {
             © {year} ReactionTimeTestOnline.com — {t.footerRights}
           </p>
           <div className="flex gap-4 text-xs text-gray-400">
-            <Link href={getLangPath(lang, "/about")} className="hover:text-gray-600 transition-colors">
+            <Link
+              href={getLangPath(lang, "/about")}
+              className="hover:text-gray-600 transition-colors"
+            >
               {copy.privacy}
             </Link>
-            <Link href={getLangPath(lang, "/contact")} className="hover:text-gray-600 transition-colors">
+            <Link
+              href={getLangPath(lang, "/contact")}
+              className="hover:text-gray-600 transition-colors"
+            >
               {t.navContact}
             </Link>
           </div>
