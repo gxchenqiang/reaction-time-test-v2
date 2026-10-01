@@ -1,7 +1,9 @@
 import { Payload, Snapshot } from "./rules";
 import { computeStats } from "./scoring";
-import { c } from "./strings";
-export function shareText(p: Payload) {
+import { challengeStrings } from "./strings";
+import { Lang } from "../i18n";
+export function shareText(p: Payload, lang: Lang = "en") {
+  const c = challengeStrings(lang);
   const s = computeStats(p.mode, p.target.r);
   if (p.kind === "invite")
     return p.mode === "classic"
@@ -24,11 +26,12 @@ export async function copyLink(url: string): Promise<"copied" | "manualCopy"> {
 export async function nativeShare(
   url: string,
   payload: Payload,
+  lang: Lang = "en",
 ): Promise<"shareResolved" | "shareFallback" | "cancelled"> {
   try {
     await navigator.share({
-      title: c.shareTitle,
-      text: shareText(payload),
+      title: challengeStrings(lang).shareTitle,
+      text: shareText(payload, lang),
       url,
     });
     return "shareResolved";

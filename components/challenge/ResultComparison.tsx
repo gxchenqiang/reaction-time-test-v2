@@ -1,16 +1,20 @@
 import { Mode, Snapshot } from "@/lib/challenge/rules";
 import { compare } from "@/lib/challenge/scoring";
-import { c } from "@/lib/challenge/strings";
+import { challengeStrings } from "@/lib/challenge/strings";
+import { Lang } from "@/lib/i18n";
 import { Score } from "./Scoreboard";
 export default function ResultComparison({
+  lang,
   mode,
   target,
   challenger,
 }: {
+  lang: Lang;
   mode: Mode;
   target: Snapshot;
   challenger: Snapshot;
 }) {
+  const c = challengeStrings(lang);
   const result = compare(
     { mode, rv: 1, score: target },
     { mode, rv: 1, score: challenger },
@@ -25,8 +29,8 @@ export default function ResultComparison({
     >
       <h2 className="font-bold text-lg break-words">{c.vs(a, b)}</h2>
       <div className="grid grid-cols-2 divide-x">
-        <Score mode={mode} score={target} label={a} />
-        <Score mode={mode} score={challenger} label={b} />
+        <Score lang={lang} mode={mode} score={target} label={a} />
+        <Score lang={lang} mode={mode} score={challenger} label={b} />
       </div>
       <p className="text-xl font-black">
         {result.reason === "not_comparable"

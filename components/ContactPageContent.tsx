@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import { Lang } from "@/lib/i18n";
 import {
   BASE_URL,
@@ -22,41 +19,66 @@ const CONTACT_EMAIL = "support@reactiontimetestonline.com";
 const CONTACT_COPY: Record<
   Lang,
   {
-    otherWaysTitle: string;
+    emailTitle: string;
     emailLabel: string;
+    emailAction: string;
+    emailInstructions: string;
   }
 > = {
   en: {
-    otherWaysTitle: "Other ways to reach us",
+    emailTitle: "Contact us by email",
     emailLabel: "Email",
+    emailAction: "Open your email app",
+    emailInstructions:
+      "Use the email link below to write to us about a question, a problem, or a suggested correction. It opens your email app; you review and send the message there. You can also copy the address into your preferred email service.",
   },
   zh: {
-    otherWaysTitle: "其他联系方式",
+    emailTitle: "通过电子邮件联系我们",
     emailLabel: "邮箱",
+    emailAction: "打开邮件应用",
+    emailInstructions:
+      "如有问题、故障反馈或内容纠错，请使用下方邮箱链接联系我们。链接会打开你的邮件应用，请在应用中检查并发送邮件。你也可以复制邮箱地址，在常用的邮箱服务中撰写邮件。",
   },
   ko: {
-    otherWaysTitle: "다른 연락 방법",
+    emailTitle: "이메일로 문의하기",
     emailLabel: "이메일",
+    emailAction: "이메일 앱 열기",
+    emailInstructions:
+      "질문, 오류 신고 또는 내용 수정 제안은 아래 이메일 링크를 이용해 주세요. 링크를 누르면 이메일 앱이 열리며, 그곳에서 내용을 확인한 뒤 직접 보내면 됩니다. 주소를 복사해 평소 사용하는 이메일 서비스에 붙여 넣어도 됩니다.",
   },
   ja: {
-    otherWaysTitle: "その他の連絡方法",
+    emailTitle: "メールでのお問い合わせ",
     emailLabel: "メール",
+    emailAction: "メールアプリを開く",
+    emailInstructions:
+      "ご質問、不具合の報告、内容の訂正依頼は、下のメールリンクからお寄せください。リンクを押すとメールアプリが開きます。内容を確認し、アプリから送信してください。アドレスをコピーして、普段お使いのメールサービスから送ることもできます。",
   },
   de: {
-    otherWaysTitle: "Weitere Kontaktmöglichkeiten",
+    emailTitle: "Kontakt per E-Mail",
     emailLabel: "E-Mail",
+    emailAction: "E-Mail-App öffnen",
+    emailInstructions:
+      "Nutze den folgenden E-Mail-Link für Fragen, Fehlermeldungen oder Korrekturvorschläge. Er öffnet deine E-Mail-App, in der du die Nachricht prüfen und selbst absenden kannst. Du kannst die Adresse auch in deinen bevorzugten E-Mail-Dienst kopieren.",
   },
   fr: {
-    otherWaysTitle: "Autres moyens de nous contacter",
+    emailTitle: "Nous contacter par e-mail",
     emailLabel: "E-mail",
+    emailAction: "Ouvrir votre application de messagerie",
+    emailInstructions:
+      "Utilisez le lien ci-dessous pour nous envoyer une question, signaler un problème ou proposer une correction. Il ouvre votre application de messagerie, où vous pouvez relire et envoyer votre message. Vous pouvez aussi copier l’adresse dans votre service de messagerie habituel.",
+  },
+  vi: {
+    emailTitle: "Liên hệ qua email",
+    emailLabel: "Email",
+    emailAction: "Mở ứng dụng email",
+    emailInstructions:
+      "Nếu bạn có câu hỏi, gặp sự cố hoặc muốn đề xuất sửa nội dung, hãy dùng liên kết email bên dưới. Ứng dụng email sẽ mở để bạn xem lại và tự gửi thư. Bạn cũng có thể sao chép địa chỉ để dùng trong dịch vụ email quen thuộc.",
   },
 };
 
 export default function ContactPageContent({ lang }: ContactPageContentProps) {
   const tr = getT(lang);
   const copy = CONTACT_COPY[lang];
-  const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const pageUrl = canonicalUrl(lang, "/contact");
   const jsonLd = {
     "@context": "https://schema.org",
@@ -97,12 +119,6 @@ export default function ContactPageContent({ lang }: ContactPageContentProps) {
     ],
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // In production, integrate with a form service (e.g. Formspree, EmailJS)
-    setSubmitted(true);
-  };
-
   return (
     <>
       <JsonLd data={jsonLd} />
@@ -112,72 +128,13 @@ export default function ContactPageContent({ lang }: ContactPageContentProps) {
         <h1 className="text-3xl font-black text-gray-900 mb-3">{tr.contactTitle}</h1>
         <p className="text-gray-500 mb-8">{tr.contactDescription}</p>
 
-        <div className="bg-white rounded-2xl shadow-sm p-8">
-          {submitted ? (
-            <div className="text-center py-8">
-              <div className="text-5xl mb-4">✅</div>
-              <p className="text-lg font-semibold text-gray-800">
-                {tr.contactSent}
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                  {tr.contactName}
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 transition"
-                  placeholder={tr.contactName}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                  {tr.contactEmail}
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 transition"
-                  placeholder="you@example.com"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                  {tr.contactMessage}
-                </label>
-                <textarea
-                  required
-                  rows={5}
-                  value={form.message}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 transition resize-none"
-                  placeholder={tr.contactMessage + "..."}
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-gray-900 text-white py-3 rounded-xl font-semibold hover:bg-gray-700 transition-colors"
-              >
-                {tr.contactSend}
-              </button>
-            </form>
-          )}
-        </div>
-
-        <div className="mt-8 bg-blue-50 rounded-2xl p-6">
+        <section className="bg-white rounded-2xl shadow-sm p-8">
           <h2 className="font-bold text-gray-800 mb-2">
-            {copy.otherWaysTitle}
+            {copy.emailTitle}
           </h2>
+          <p className="text-gray-600 leading-relaxed mb-5">
+            {copy.emailInstructions}
+          </p>
           <p className="text-sm text-gray-600">
             {copy.emailLabel}:{" "}
             <a
@@ -187,7 +144,13 @@ export default function ContactPageContent({ lang }: ContactPageContentProps) {
               {CONTACT_EMAIL}
             </a>
           </p>
-        </div>
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="inline-flex mt-6 bg-gray-900 text-white px-6 py-3 rounded-xl font-semibold hover:bg-gray-700 transition-colors"
+          >
+            {copy.emailAction}
+          </a>
+        </section>
       </main>
 
       <Footer t={tr} lang={lang} />

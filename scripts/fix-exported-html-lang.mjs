@@ -9,6 +9,7 @@ const langBySegment = new Map([
   ["ja", "ja"],
   ["de", "de"],
   ["fr", "fr"],
+  ["vi", "vi"],
 ]);
 
 function htmlFiles(dir) {

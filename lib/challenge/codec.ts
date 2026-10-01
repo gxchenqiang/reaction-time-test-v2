@@ -1,3 +1,4 @@
+import { Lang, getLangPath } from "../i18n";
 import { isMode, Payload, Snapshot } from "./rules";
 import { shareable } from "./scoring";
 export type LinkErrorCode = "invalid" | "version" | "score";
@@ -111,8 +112,12 @@ export function parseHash(hash: string): Payload | null {
     return bad();
   return decodeChallenge(params.get("c")!);
 }
-export function challengeUrl(payload: Payload, origin: string): string {
-  const url = `${origin}/challenge#c=${encodeChallenge(payload)}`;
+export function challengeUrl(
+  payload: Payload,
+  origin: string,
+  lang: Lang = "en",
+): string {
+  const url = `${origin}${getLangPath(lang, "/challenge")}#c=${encodeChallenge(payload)}`;
   if (url.length >= 2000) return bad();
   return url;
 }

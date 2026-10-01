@@ -1,68 +1,86 @@
-"use client";
-
-import { useState } from "react";
+import Link from "next/link";
+import { Lang, getLangPath } from "@/lib/i18n";
+import { getPostBySlug } from "@/lib/blogPosts";
 import { Translations } from "@/lib/translations";
 
 interface HomeSeoContentProps {
   t: Translations;
+  lang: Lang;
 }
 
 const SCORE_CATEGORIES = [
   {
     key: "lightning",
-    range: "< 150ms",
     color: "bg-purple-100 text-purple-800 border-purple-200",
     dot: "bg-purple-500",
   },
   {
     key: "fast",
-    range: "150–200ms",
     color: "bg-green-100 text-green-800 border-green-200",
     dot: "bg-green-500",
   },
   {
     key: "average",
-    range: "200–300ms",
     color: "bg-blue-100 text-blue-800 border-blue-200",
     dot: "bg-blue-500",
   },
   {
     key: "slow",
-    range: "300–400ms",
     color: "bg-yellow-100 text-yellow-800 border-yellow-200",
     dot: "bg-yellow-500",
   },
   {
     key: "verySlow",
-    range: "> 400ms",
     color: "bg-red-100 text-red-800 border-red-200",
     dot: "bg-red-400",
   },
 ] as const;
 
-function FaqItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
+const RESOURCE_LINK_CLASS = "text-blue-700 underline underline-offset-4 hover:text-blue-900";
+
+function RelatedGuides({ lang, slugs, label }: { lang: Lang; slugs: string[]; label: string }) {
   return (
-    <div className="border border-gray-100 rounded-xl overflow-hidden">
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-gray-50 transition-colors"
-      >
-        <span className="font-semibold text-gray-800 pr-4">{q}</span>
-        <span className="text-gray-400 flex-shrink-0 text-lg leading-none">
-          {open ? "−" : "+"}
-        </span>
-      </button>
-      {open && (
-        <div className="px-5 pb-4 text-gray-600 leading-relaxed text-sm border-t border-gray-100 pt-3">
-          {a}
-        </div>
-      )}
+    <div className="mt-5 text-sm">
+      <p className="font-medium text-gray-700 mb-2">{label}</p>
+      <ul className="space-y-2">
+        {slugs.map((slug) => {
+          const post = getPostBySlug(slug, lang);
+          if (!post) return null;
+          return (
+            <li key={slug}>
+              <Link href={getLangPath(lang, `/blog/${slug}`)} className={RESOURCE_LINK_CLASS}>
+                {post.title}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
 
-export default function HomeSeoContent({ t }: HomeSeoContentProps) {
+function FaqItem({ faq, lang }: { faq: Translations["faqs"][number]; lang: Lang }) {
+  const guide = faq.guideSlug ? getPostBySlug(faq.guideSlug, lang) : undefined;
+  return (
+    <details className="group border border-gray-100 rounded-xl overflow-hidden">
+      <summary className="cursor-pointer px-5 py-4 font-semibold text-gray-800 hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gray-700">
+        {faq.q}
+      </summary>
+      <div className="px-5 pb-4 text-gray-600 leading-relaxed text-sm border-t border-gray-100 pt-3">
+        <p>{faq.a}</p>
+        {guide && (
+          <p className="mt-3">
+            <Link href={getLangPath(lang, `/blog/${guide.slug}`)} className={RESOURCE_LINK_CLASS}>
+              {guide.title}
+            </Link>
+          </p>
+        )}
+      </div>
+    </details>
+  );
+}
+
+export default function HomeSeoContent({ t, lang }: HomeSeoContentProps) {
   const catLabels: Record<string, string> = {
     lightning: t.catLightning,
     fast: t.catFast,
@@ -81,7 +99,7 @@ export default function HomeSeoContent({ t }: HomeSeoContentProps) {
   return (
     <div className="space-y-8 mt-8">
       {/* Section 1: How to take the test */}
-      <section className="bg-white rounded-2xl shadow-sm p-8">
+      <section id="how-to" className="bg-white rounded-2xl shadow-sm p-8 scroll-mt-20">
         <h2 className="text-xl font-bold text-gray-900 mb-6">
           {t.howToTitle}
         </h2>
@@ -98,13 +116,18 @@ export default function HomeSeoContent({ t }: HomeSeoContentProps) {
       </section>
 
       {/* Section 2: Score meanings */}
-      <section className="bg-white rounded-2xl shadow-sm p-8">
+      <section id="scores" className="bg-white rounded-2xl shadow-sm p-8 scroll-mt-20">
         <h2 className="text-xl font-bold text-gray-900 mb-2">
           {t.scoresTitle}
         </h2>
-        <p className="text-gray-500 text-sm mb-6">{t.scoresDesc}</p>
+        <p className="text-gray-600 leading-relaxed mb-3">{t.scoresDesc}</p>
+        <p className="text-gray-600 leading-relaxed mb-3">{t.scoresExample}</p>
+        <p className="mb-6 text-sm text-gray-600">
+          {t.sourcesLabel}:{" "}
+          <a href="https://pubmed.ncbi.nlm.nih.gov/25859198/" className={RESOURCE_LINK_CLASS}>Woods et al. (2015)</a>
+        </p>
         <div className="space-y-3">
-          {SCORE_CATEGORIES.map(({ key, range, color, dot }) => (
+          {SCORE_CATEGORIES.map(({ key, color, dot }) => (
             <div
               key={key}
               className={`flex items-center gap-4 rounded-xl border px-4 py-3 ${color}`}
@@ -112,16 +135,14 @@ export default function HomeSeoContent({ t }: HomeSeoContentProps) {
               <div className={`w-3 h-3 rounded-full flex-shrink-0 ${dot}`} />
               <div className="flex-1 min-w-0">
                 <span className="font-semibold">{catLabels[key]}</span>
-                <span className="text-xs ml-2 opacity-70">
+                <span className="text-sm block mt-1">
                   {catDescs[key]}
                 </span>
               </div>
-              <span className="text-xs font-mono font-semibold flex-shrink-0 opacity-80">
-                {range}
-              </span>
             </div>
           ))}
         </div>
+        <RelatedGuides lang={lang} slugs={["what-is-reaction-time", "reaction-time-by-age"]} label={t.relatedGuidesLabel} />
       </section>
 
       {/* Section 3: Who benefits */}
@@ -166,7 +187,7 @@ export default function HomeSeoContent({ t }: HomeSeoContentProps) {
       </section>
 
       {/* Section 5: Accuracy and benchmarking */}
-      <section className="bg-white rounded-2xl shadow-sm p-8">
+      <section id="accuracy" className="bg-white rounded-2xl shadow-sm p-8 scroll-mt-20">
         <h2 className="text-xl font-bold text-gray-900 mb-6">
           {t.accuracyTitle}
         </h2>
@@ -178,10 +199,18 @@ export default function HomeSeoContent({ t }: HomeSeoContentProps) {
             </li>
           ))}
         </ul>
+        <div className="mt-4 text-sm text-gray-600">
+          <p className="mb-2">{t.sourcesLabel}</p>
+          <ul className="space-y-2">
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance/now" className={RESOURCE_LINK_CLASS}>MDN: performance.now()</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame" className={RESOURCE_LINK_CLASS}>MDN: requestAnimationFrame()</a></li>
+          </ul>
+          <p className="mt-3"><Link href={getLangPath(lang, "/about")} className={RESOURCE_LINK_CLASS}>{t.aboutTitle}</Link></p>
+        </div>
       </section>
 
       {/* Section 6: Tips */}
-      <section className="bg-white rounded-2xl shadow-sm p-8">
+      <section id="practice" className="bg-white rounded-2xl shadow-sm p-8 scroll-mt-20">
         <h2 className="text-xl font-bold text-gray-900 mb-6">{t.tipsTitle}</h2>
         <ul className="space-y-3">
           {t.tips.map((tip, i) => (
@@ -193,14 +222,15 @@ export default function HomeSeoContent({ t }: HomeSeoContentProps) {
             </li>
           ))}
         </ul>
+        <RelatedGuides lang={lang} slugs={["how-to-improve-reaction-time"]} label={t.relatedGuidesLabel} />
       </section>
 
       {/* Section 7: FAQ */}
-      <section className="bg-white rounded-2xl shadow-sm p-8">
+      <section id="faq" className="bg-white rounded-2xl shadow-sm p-8">
         <h2 className="text-xl font-bold text-gray-900 mb-6">{t.faqTitle}</h2>
         <div className="space-y-2">
           {t.faqs.map((faq, i) => (
-            <FaqItem key={i} q={faq.q} a={faq.a} />
+            <FaqItem key={i} faq={faq} lang={lang} />
           ))}
         </div>
       </section>

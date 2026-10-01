@@ -280,7 +280,7 @@ export default function NotFound() {
         }
       `}</style>
 
-      <div className="nf-page">
+      <div className="nf-page" lang="en">
         <div className="nf-card">
 
           {/* ── 品牌区域 ── */}
@@ -291,13 +291,13 @@ export default function NotFound() {
             </div>
 
             <p className="nf-tagline">
-              Test your reaction speed online — free, instant, and accurate. Challenge yourself and see how fast you really are.
+              Test your reaction speed online for free. Complete five rounds and compare your own results over time.
             </p>
 
             <div className="nf-badges">
               <span className="nf-badge">🌐 Free Online</span>
               <span className="nf-badge">📊 Track Results</span>
-              <span className="nf-badge">🏆 Global Ranking</span>
+              <span className="nf-badge">⚡ Five Rounds</span>
             </div>
           </div>
 

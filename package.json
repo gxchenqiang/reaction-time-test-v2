@@ -8,6 +8,7 @@
     "postbuild": "node scripts/fix-exported-html-lang.mjs",
     "check:blog-i18n": "node scripts/check-blog-i18n.mjs",
     "check:seo": "node scripts/check-seo-content.mjs",
+    "check:seo:export": "node scripts/check-seo-export.mjs",
     "start": "next start",
     "lint": "next lint",
     "cf:preview": "wrangler pages dev out",

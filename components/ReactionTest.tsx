@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react";
 import { Translations } from "@/lib/translations";
 import {
-  calculatePercentile,
   getReactionCategory,
   saveSession,
   loadHistory,
@@ -14,7 +13,12 @@ import {
 } from "@/lib/stats";
 import { Lang } from "@/lib/i18n";
 import ResultsPanel from "./ResultsPanel";
-import HistoryChart from "./HistoryChart";
+import dynamic from "next/dynamic";
+
+const HistoryChart = dynamic(() => import("./HistoryChart"), {
+  ssr: false,
+  loading: () => <div className="h-[180px]" aria-hidden="true" />,
+});
 
 type TestPhase =
   | "idle"
@@ -37,7 +41,10 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
   const [showHistory, setShowHistory] = useState(false);
 
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const startTimeRef = useRef<number>(0);
+  const startTimeRef = useRef<number | null>(null);
+  const testAreaRef = useRef<HTMLDivElement>(null);
+  const nextRoundRef = useRef<HTMLButtonElement>(null);
+  const restoreFocusRef = useRef(false);
 
   useEffect(() => {
     const h = loadHistory();
@@ -53,6 +60,7 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
   }, []);
 
   const startWaiting = useCallback(() => {
+    startTimeRef.current = null;
     setPhase("waiting");
     clearTimer();
     const delay = 1000 + Math.random() * 4000; // 1–5s random delay
@@ -73,7 +81,7 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
       return;
     }
 
-    if (phase === "go") {
+    if (phase === "go" && startTimeRef.current !== null) {
       const elapsed = Math.round(performance.now() - startTimeRef.current);
       setLastTime(elapsed);
       const newRounds = [...rounds, { time: elapsed, timestamp: Date.now() }];
@@ -113,6 +121,7 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
 
   const resetTest = useCallback(() => {
     clearTimer();
+    restoreFocusRef.current = true;
     setPhase("idle");
     setRounds([]);
     setLastTime(null);
@@ -122,13 +131,15 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
     return () => clearTimer();
   }, [clearTimer]);
 
-  // 在绿色画面真正绘制到屏幕后才启动计时，避免提前计时导致成绩偏慢
-  useEffect(() => {
-    if (phase === "go") {
-      const rafId = requestAnimationFrame(() => {
-        startTimeRef.current = performance.now();
-      });
-      return () => cancelAnimationFrame(rafId);
+  // Start at the DOM commit before paint. This is a browser estimate;
+  // it cannot observe when the display physically emits the green frame.
+  useLayoutEffect(() => {
+    if (phase === "go") startTimeRef.current = performance.now();
+    if (phase === "waiting") testAreaRef.current?.focus({ preventScroll: true });
+    if (phase === "result") nextRoundRef.current?.focus({ preventScroll: true });
+    if (phase === "idle" && restoreFocusRef.current) {
+      testAreaRef.current?.focus({ preventScroll: true });
+      restoreFocusRef.current = false;
     }
   }, [phase]);
 
@@ -137,7 +148,6 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
       ? Math.round(rounds.reduce((s, r) => s + r.time, 0) / rounds.length)
       : null;
   const best = rounds.length > 0 ? Math.min(...rounds.map((r) => r.time)) : null;
-  const percentile = avg !== null ? calculatePercentile(avg) : null;
   const category = avg !== null ? getReactionCategory(avg) : null;
 
   const bgColor: Record<TestPhase, string> = {
@@ -149,7 +159,7 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
     done: "bg-gray-100",
   };
 
-  const textOnColor = ["waiting", "go", "tooSoon"].includes(phase);
+  const textOnColor = phase === "waiting";
 
   const getCategoryLabel = () => {
     if (!category) return "";
@@ -198,18 +208,27 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
       {/* Main test area */}
       {phase !== "result" && phase !== "done" && (
         <div
+          ref={testAreaRef}
           onClick={handleClick}
+          onKeyDown={(event) => {
+            if (event.key === " " || event.key === "Enter") {
+              event.preventDefault();
+              if (!event.repeat) handleClick();
+            }
+          }}
+          tabIndex={0}
+          data-phase={phase}
           className={`
             relative w-full rounded-2xl cursor-pointer select-none
             flex flex-col items-center justify-center
-            transition-colors duration-100
+            focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-gray-700
             ${bgColor[phase]}
             ${textOnColor ? "text-white" : "text-gray-700"}
             min-h-[280px] sm:min-h-[320px]
             shadow-lg
           `}
           role="button"
-          aria-label="Reaction test area"
+          aria-label={t.siteTitle}
         >
           {phase === "idle" && (
             <div className="text-center px-6">
@@ -217,7 +236,7 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
               <p className="text-2xl font-bold text-gray-800 mb-2">
                 {t.clickToStart}
               </p>
-              <p className="text-gray-500 text-sm">{t.aboutTestDesc}</p>
+              <p className="text-gray-600 text-sm">{t.aboutTestDesc}</p>
             </div>
           )}
 
@@ -229,7 +248,7 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
           )}
 
           {phase === "go" && (
-            <div className="text-center px-6 animate-bounce">
+            <div className="text-center px-6">
               <div className="text-5xl mb-3">🟢</div>
               <p className="text-4xl font-black tracking-wider">{t.clickNow}</p>
             </div>
@@ -262,7 +281,17 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
           <p className="text-gray-500 mb-6">{t.yourTime}</p>
           {rounds.length < TOTAL_ROUNDS && (
             <button
+              ref={nextRoundRef}
               onClick={handleClick}
+              onKeyDown={(event) => {
+                if (event.key === " " || event.key === "Enter") {
+                  event.preventDefault();
+                  if (!event.repeat) handleClick();
+                }
+              }}
+              onKeyUp={(event) => {
+                if (event.key === " " || event.key === "Enter") event.preventDefault();
+              }}
               className="bg-gray-900 text-white px-8 py-3 rounded-xl font-semibold hover:bg-gray-700 transition-colors"
             >
               {t.nextRound} ({rounds.length + 1}/{TOTAL_ROUNDS})
@@ -272,14 +301,13 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
       )}
 
       {/* Final results */}
-      {phase === "done" && avg !== null && best !== null && percentile !== null && (
+      {phase === "done" && avg !== null && best !== null && (
         <ResultsPanel
           t={t}
           lang={lang}
           rounds={rounds}
           avg={avg}
           best={best}
-          percentile={percentile}
           categoryLabel={getCategoryLabel()}
           categoryDesc={getCategoryDesc()}
           onPlayAgain={resetTest}
@@ -292,7 +320,8 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
           <div className="flex items-center justify-between mb-3">
             <button
               onClick={() => setShowHistory((s) => !s)}
-              className="text-gray-600 font-semibold flex items-center gap-2 hover:text-gray-900 transition-colors"
+              aria-expanded={showHistory}
+              className="min-h-8 text-gray-600 font-semibold flex items-center gap-2 hover:text-gray-900 transition-colors"
             >
               <span>{t.history}</span>
               <span className="text-xs">{showHistory ? "▲" : "▼"}</span>
@@ -303,7 +332,7 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
                   clearHistory();
                   setHistory([]);
                 }}
-                className="text-xs text-red-400 hover:text-red-600 transition-colors"
+                className="min-h-8 px-2 text-xs text-red-700 hover:text-red-800 transition-colors"
               >
                 {t.clearHistory}
               </button>
@@ -312,7 +341,7 @@ export default function ReactionTest({ t, lang }: ReactionTestProps) {
           {showHistory && (
             <div className="bg-white rounded-2xl shadow-sm p-4">
               {history.length === 0 ? (
-                <p className="text-gray-400 text-center py-4">{t.noHistory}</p>
+                <p className="text-gray-600 text-center py-4">{t.noHistory}</p>
               ) : (
                 <HistoryChart history={history} t={t} />
               )}

@@ -24,6 +24,7 @@ const BLOG_UI_COPY: Record<Lang, { readMore: string }> = {
   ja: { readMore: "続きを読む" },
   de: { readMore: "Weiterlesen" },
   fr: { readMore: "Lire la suite" },
+  vi: { readMore: "Đọc tiếp" },
 };
 
 export default function BlogPageContent({ lang }: BlogPageContentProps) {

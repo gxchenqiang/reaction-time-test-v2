@@ -1,17 +1,21 @@
 import { Mode, Snapshot } from "@/lib/challenge/rules";
 import { computeStats } from "@/lib/challenge/scoring";
-import { c } from "@/lib/challenge/strings";
+import { challengeStrings } from "@/lib/challenge/strings";
+import { Lang } from "@/lib/i18n";
 export function Score({
+  lang,
   mode,
   score,
   label,
   current = false,
 }: {
+  lang: Lang;
   mode: Mode;
   score: Snapshot;
   label: string;
   current?: boolean;
 }) {
+  const c = challengeStrings(lang);
   const s = computeStats(mode, score.r);
   return (
     <div className="min-w-0 p-3 sm:p-4">
@@ -39,23 +43,31 @@ export function Score({
   );
 }
 export default function Scoreboard({
+  lang,
   mode,
   target,
   current,
 }: {
+  lang: Lang;
   mode: Mode;
   target?: Snapshot;
   current: Snapshot;
 }) {
+  const c = challengeStrings(lang);
   return (
     <div
       className={`rounded-xl border border-gray-200 bg-white grid ${target ? "grid-cols-2 divide-x divide-gray-200" : "grid-cols-1"}`}
       data-testid="scoreboard"
     >
       {target && (
-        <Score mode={mode} score={target} label={`${target.n} — ${c.target}`} />
+        <Score
+          lang={lang}
+          mode={mode}
+          score={target}
+          label={`${target.n} — ${c.target}`}
+        />
       )}
-      <Score mode={mode} score={current} label={c.you} current />
+      <Score lang={lang} mode={mode} score={current} label={c.you} current />
     </div>
   );
 }

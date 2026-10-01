@@ -5,14 +5,11 @@ import { canonicalUrl, languageAlternates } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
-const SITE_LAST_MODIFIED = new Date("2026-05-25T00:00:00.000Z");
-
-function latestDate(...dates: Date[]): Date {
-  return new Date(Math.max(...dates.map((date) => date.getTime())));
-}
+const SITE_LAST_MODIFIED = new Date("2026-09-22T00:00:00.000Z");
+const HOME_LAST_MODIFIED = new Date("2026-09-29T00:00:00.000Z");
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const localizedPages = ["", "/blog", "/about", "/contact"];
+  const localizedPages = ["", "/blog", "/about", "/contact", "/challenge"];
 
   const urls: MetadataRoute.Sitemap = [];
 
@@ -20,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const lang of SUPPORTED_LANGS) {
       urls.push({
         url: canonicalUrl(lang as Lang, page),
-        lastModified: SITE_LAST_MODIFIED,
+        lastModified: page === "" ? HOME_LAST_MODIFIED : SITE_LAST_MODIFIED,
         changeFrequency: page === "" ? "weekly" : "monthly",
         priority: page === "" ? 1.0 : 0.7,
         alternates: {
@@ -35,10 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       const path = `/blog/${post.slug}`;
       urls.push({
         url: canonicalUrl(lang as Lang, path),
-        lastModified: latestDate(
-          new Date(`${post.date}T00:00:00.000Z`),
-          SITE_LAST_MODIFIED
-        ),
+        lastModified: new Date(`${post.updatedDate ?? post.date}T00:00:00.000Z`),
         changeFrequency: "monthly",
         priority: 0.6,
         alternates: {
@@ -48,6 +42,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  urls.push({ url: canonicalUrl("en", "/challenge"), changeFrequency: "monthly", priority: 0.7 });
   return urls;
 }

@@ -13,42 +13,8 @@ export interface TestSession {
 const STORAGE_KEY = "rtt_history";
 const TOTAL_ROUNDS = 5;
 
-// Simulated global distribution (normal distribution centered at 250ms)
-// Used to calculate percentile without a backend
-export function calculatePercentile(ms: number): number {
-  // Based on empirical data: mean ~250ms, std ~50ms
-  // Using a simplified lookup table
-  const distribution = [
-    { ms: 100, pct: 99 },
-    { ms: 150, pct: 95 },
-    { ms: 175, pct: 90 },
-    { ms: 200, pct: 82 },
-    { ms: 225, pct: 70 },
-    { ms: 250, pct: 55 },
-    { ms: 275, pct: 40 },
-    { ms: 300, pct: 28 },
-    { ms: 350, pct: 15 },
-    { ms: 400, pct: 8 },
-    { ms: 500, pct: 3 },
-    { ms: 600, pct: 1 },
-  ];
-
-  if (ms <= distribution[0].ms) return distribution[0].pct;
-  if (ms >= distribution[distribution.length - 1].ms)
-    return distribution[distribution.length - 1].pct;
-
-  for (let i = 0; i < distribution.length - 1; i++) {
-    const a = distribution[i];
-    const b = distribution[i + 1];
-    if (ms >= a.ms && ms <= b.ms) {
-      const ratio = (ms - a.ms) / (b.ms - a.ms);
-      return Math.round(a.pct + ratio * (b.pct - a.pct));
-    }
-  }
-  return 50;
-}
-
 export function getReactionCategory(ms: number): string {
+  // Site-defined display bands, not population norms or medical thresholds.
   if (ms < 150) return "lightning";
   if (ms < 200) return "fast";
   if (ms < 300) return "average";

@@ -28,7 +28,8 @@ import {
 } from "@/lib/challenge/storage";
 import { onceOpen, trackEvent } from "@/lib/challenge/analytics";
 import { copyLink, nativeShare } from "@/lib/challenge/sharing";
-import { c } from "@/lib/challenge/strings";
+import { challengeStrings } from "@/lib/challenge/strings";
+import { Lang, getLangPath, LANG_HREFLANG } from "@/lib/i18n";
 import Scoreboard from "./Scoreboard";
 import ResultComparison from "./ResultComparison";
 import SharePanel from "./SharePanel";
@@ -41,7 +42,8 @@ const initial = (mode: Mode): State => ({
   release: false,
   input: null,
 });
-export default function ChallengeApp() {
+export default function ChallengeApp({ lang }: { lang: Lang }) {
+  const c = challengeStrings(lang);
   const [mode, setMode] = useState<Mode>("classic");
   const [payload, setPayload] = useState<Payload | null>(null);
   const [error, setError] = useState<LinkErrorCode | null>(null);
@@ -201,12 +203,13 @@ export default function ChallengeApp() {
   function navigate(next?: Payload, nextMode: Mode = mode) {
     historyPush(
       next
-        ? challengeUrl(next, location.origin)
-        : `/challenge${nextMode === "advanced" ? "?mode=advanced" : ""}`,
+        ? challengeUrl(next, location.origin, lang)
+        : `${getLangPath(lang, "/challenge")}${nextMode === "advanced" ? "?mode=advanced" : ""}`,
     );
   }
   function historyPush(url: string) {
     window.history.pushState(null, "", url);
+    window.dispatchEvent(new Event("challengecontextchange"));
     readLocation();
     window.scrollTo({ top: 0, behavior: "instant" });
   }
@@ -267,7 +270,7 @@ export default function ChallengeApp() {
               target: score,
             },
       );
-      const url = challengeUrl(next, location.origin);
+      const url = challengeUrl(next, location.origin, lang);
       setShareStatus("");
       setShared(next);
       if (!saveProfile(nickname)) setStorageError(true);
@@ -281,7 +284,7 @@ export default function ChallengeApp() {
       if (reply) {
         if (typeof navigator.share === "function") {
           trackEvent("share_attempt", fields);
-          const result = await nativeShare(url, next);
+          const result = await nativeShare(url, next, lang);
           if (result === "cancelled") trackEvent("share_cancelled", fields);
           else {
             setShareStatus(c[result]);
@@ -315,6 +318,7 @@ export default function ChallengeApp() {
           {c[mode]} · {c.rounds(RULES_V1[mode].rounds)}
         </p>
         <ResultComparison
+          lang={lang}
           mode={mode}
           target={payload.target}
           challenger={payload.challenger}
@@ -424,7 +428,7 @@ export default function ChallengeApp() {
           {mode === "classic" ? c.classicRules : c.advancedRules}
         </p>
       </div>
-      <Scoreboard mode={mode} target={target} current={current} />
+      <Scoreboard lang={lang} mode={mode} target={target} current={current} />
       <div
         ref={surface}
         role="button"
@@ -464,21 +468,38 @@ export default function ChallengeApp() {
         >
           {signalLabel}
         </p>
-        {(state.phase === "waiting" || state.phase === "signal") && (
+        {(state.phase === "ready" || state.phase === "waiting") && (
           <p className="text-sm mt-3">
-            {state.signal === "n" ? c.dontClick : c.clickGreen}
+            {c.dontClick} · {c.clickGreen}
           </p>
+        )}
+        {state.phase === "signal" && (
+          <p className="text-sm mt-3">
+            {state.signal === "n" ? c.dontClick : c.clickOnce}
+          </p>
+        )}
+        {state.phase === "feedback" && (
+          <p className="text-sm mt-3">{c.nextGreen}</p>
+        )}
+        {state.phase === "invalid" && state.reason === "early" && (
+          <p className="text-sm mt-3">{c.earlyRound(stats.completed + 1)}</p>
         )}
       </div>
       <div className="flex justify-between gap-3 text-xs sm:text-sm text-gray-500">
         <span>
           {c.round(
-            Math.min(stats.completed + 1, RULES_V1[mode].rounds),
+            Math.min(
+              state.phase === "feedback"
+                ? stats.completed
+                : stats.completed + 1,
+              RULES_V1[mode].rounds,
+            ),
             RULES_V1[mode].rounds,
           )}
         </span>
         <span>{c.controls}</span>
       </div>
+      <p className="text-sm text-gray-600">{c.autoRounds}</p>
       {!playing && (
         <button className="challenge-primary w-full" onClick={start}>
           {state.phase === "idle" ? (target ? c.start : c.startTest) : c.retry}
@@ -488,6 +509,7 @@ export default function ChallengeApp() {
         <div className="space-y-4">
           {target && canShare && (
             <ResultComparison
+              lang={lang}
               mode={mode}
               target={target}
               challenger={current}
@@ -552,7 +574,11 @@ export default function ChallengeApp() {
                 )}
               </div>
               {shared && (
-                <SharePanel payload={shared} initialStatus={shareStatus} />
+                <SharePanel
+                  lang={lang}
+                  payload={shared}
+                  initialStatus={shareStatus}
+                />
               )}
             </>
           ) : (
@@ -576,7 +602,10 @@ export default function ChallengeApp() {
               >
                 <span>
                   {c[h.mode]} · {c.ms(computeStats(h.mode, h.score.r).score10)}{" "}
-                  · {new Date(h.completedAt).toLocaleDateString()}
+                  ·{" "}
+                  {new Date(h.completedAt).toLocaleDateString(
+                    LANG_HREFLANG[lang],
+                  )}
                 </span>
                 <button className="underline" onClick={() => restore(h)}>
                   {c.restore}

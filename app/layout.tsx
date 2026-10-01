@@ -3,6 +3,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Analytics from "@/components/Analytics";
+import DocumentLanguage from "@/components/DocumentLanguage";
+import { t } from "@/lib/translations";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,9 +13,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Reaction Time Test – How Fast Are You?",
-  description:
-    "Test your reaction time online for free. Click as fast as you can when the screen turns green. Track your results and compare with global averages.",
+  title: t("en").siteTitle,
+  description: t("en").siteDescription,
   metadataBase: new URL("https://reactiontimetestonline.com"),
   icons: {
     icon: [
@@ -39,8 +40,9 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} bg-gray-50 min-h-screen`}>
+        <DocumentLanguage />
         <Analytics />
         {children}
       </body>

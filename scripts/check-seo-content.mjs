@@ -6,7 +6,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const translationsPath = path.join(__dirname, "../lib/translations.ts");
 const source = fs.readFileSync(translationsPath, "utf8");
 
-const locales = ["en", "zh", "ko", "ja", "de", "fr"];
+const locales = ["en", "zh", "ko", "ja", "de", "fr", "vi"];
 const requiredFields = [
   "longTailTitle",
   "longTailIntro",

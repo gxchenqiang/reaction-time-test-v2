@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { challengeStrings } from "@/lib/challenge/strings";
-import { Lang } from "@/lib/i18n";
+import { Lang, getLangPath } from "@/lib/i18n";
 import { t as getT } from "@/lib/translations";
 import { ADS_ENABLED } from "@/lib/config";
 import {
@@ -96,10 +96,9 @@ export default function HomePageContent({ lang }: HomePageContentProps) {
             <ReactionTest t={tr} lang={lang} />
 
             <div className="max-w-2xl mx-auto mt-5 flex flex-wrap justify-center gap-3 text-sm">
-              <Link href="/challenge" className="challenge-primary">{challengeStrings(lang).challengeFriend}</Link>
-              <Link href="/challenge?mode=advanced" className="challenge-secondary">{challengeStrings(lang).tryAdvanced}</Link>
+              <Link href={getLangPath(lang, "/challenge")} className="challenge-primary">{challengeStrings(lang).challengeFriend}</Link>
+              <Link href={getLangPath(lang, "/challenge?mode=advanced")} className="challenge-secondary">{challengeStrings(lang).tryAdvanced}</Link>
             </div>
-            {lang !== "en" && <p className="text-center text-xs text-gray-500 mt-2">{challengeStrings(lang).english}</p>}
 
             {/* Fun facts */}
             <div className="mt-8">
@@ -118,7 +117,7 @@ export default function HomePageContent({ lang }: HomePageContentProps) {
             </section>
 
             {/* Extended SEO content sections */}
-            <HomeSeoContent t={tr} />
+            <HomeSeoContent t={tr} lang={lang} />
           </div>
 
           {/* Sidebar ad - desktop only, only rendered when ads are enabled */}

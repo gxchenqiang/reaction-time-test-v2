@@ -4,29 +4,33 @@ import { Payload } from "@/lib/challenge/rules";
 import { challengeUrl } from "@/lib/challenge/codec";
 import { copyLink, nativeShare, shareText } from "@/lib/challenge/sharing";
 import { trackEvent } from "@/lib/challenge/analytics";
-import { c } from "@/lib/challenge/strings";
+import { challengeStrings } from "@/lib/challenge/strings";
+import { Lang } from "@/lib/i18n";
 export default function SharePanel({
+  lang,
   payload,
   initialStatus = "",
 }: {
+  lang: Lang;
   payload: Payload;
   initialStatus?: string;
 }) {
+  const c = challengeStrings(lang);
   const [status, setStatus] = useState("");
   const [native, setNative] = useState(false);
   const [url, setUrl] = useState("");
   useEffect(() => {
-    setUrl(challengeUrl(payload, location.origin));
+    setUrl(challengeUrl(payload, location.origin, lang));
     setNative(typeof navigator.share === "function");
     setStatus(initialStatus);
-  }, [payload, initialStatus]);
+  }, [payload, initialStatus, lang]);
   const fields = { mode: payload.mode, rulesVersion: 1 as const };
   return (
     <section
       className="rounded-xl border border-gray-200 bg-white p-4 space-y-3"
       aria-label={c.share}
     >
-      <p className="text-sm break-words">{shareText(payload)}</p>
+      <p className="text-sm break-words">{shareText(payload, lang)}</p>
       <div className="flex flex-wrap gap-2">
         <button
           className="challenge-primary"
@@ -50,7 +54,7 @@ export default function SharePanel({
             className="challenge-secondary"
             onClick={async () => {
               trackEvent("share_attempt", fields);
-              const result = await nativeShare(url, payload);
+              const result = await nativeShare(url, payload, lang);
               if (result === "cancelled") {
                 setStatus("");
                 trackEvent("share_cancelled", fields);

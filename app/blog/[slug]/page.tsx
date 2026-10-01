@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(slug);
   if (!post) return {};
   return {
-    title: `${post.title} – Reaction Time Test`,
+    title: post.title,
     description: post.excerpt,
     alternates: {
       canonical: canonicalUrl("en", `/blog/${slug}`),
@@ -25,10 +25,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     openGraph: {
       type: "article",
-      title: `${post.title} – Reaction Time Test`,
+      title: post.title,
       description: post.excerpt,
       url: canonicalUrl("en", `/blog/${slug}`),
       publishedTime: post.date,
+      modifiedTime: post.updatedDate ?? post.date,
     },
   };
 }

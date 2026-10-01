@@ -2,10 +2,10 @@ import Link from "next/link";
 import { Lang, getLangPath } from "@/lib/i18n";
 import {
   BASE_URL,
-  SITE_LOGO_URL,
   canonicalUrl,
   inLanguage,
   organizationJsonLd,
+  SITE_NAME,
 } from "@/lib/seo";
 import { t as getT } from "@/lib/translations";
 import { BlogPost, BlogSection } from "@/lib/blogPosts";
@@ -13,6 +13,17 @@ import Header from "./Header";
 import Footer from "./Footer";
 import AdBanner from "./AdBanner";
 import JsonLd from "./JsonLd";
+import GuideLinks from "./GuideLinks";
+
+const ARTICLE_COPY: Record<Lang, { sources: string; updated: string; by: string }> = {
+  en: { sources: "Sources and further reading", updated: "Updated", by: "Published by" },
+  zh: { sources: "来源与延伸阅读", updated: "更新于", by: "发布方" },
+  ko: { sources: "출처 및 참고 자료", updated: "수정일", by: "게시자" },
+  ja: { sources: "出典と参考資料", updated: "更新日", by: "発行者" },
+  de: { sources: "Quellen und weiterführende Informationen", updated: "Aktualisiert", by: "Veröffentlicht von" },
+  fr: { sources: "Sources et lectures complémentaires", updated: "Mise à jour", by: "Publié par" },
+  vi: { sources: "Nguồn và tài liệu đọc thêm", updated: "Cập nhật", by: "Đăng bởi" },
+};
 
 interface BlogPostContentProps {
   post: BlogPost;
@@ -82,6 +93,7 @@ function renderSection(section: BlogSection, i: number) {
 
 export default function BlogPostContent({ post, lang }: BlogPostContentProps) {
   const tr = getT(lang);
+  const copy = ARTICLE_COPY[lang];
   const blogPath = getLangPath(lang, "/blog");
   const pageUrl = canonicalUrl(lang, `/blog/${post.slug}`);
   const jsonLd = {
@@ -94,8 +106,8 @@ export default function BlogPostContent({ post, lang }: BlogPostContentProps) {
         headline: post.title,
         description: post.excerpt,
         datePublished: post.date,
-        dateModified: post.date,
-        image: SITE_LOGO_URL,
+        dateModified: post.updatedDate ?? post.date,
+        citation: post.sources?.map((source) => source.url),
         mainEntityOfPage: pageUrl,
         url: pageUrl,
         inLanguage: inLanguage(lang),
@@ -163,16 +175,24 @@ export default function BlogPostContent({ post, lang }: BlogPostContentProps) {
         {/* Article */}
         <article className="bg-white rounded-2xl shadow-sm p-8 sm:p-10">
           {/* Meta */}
-          <div className="flex items-center gap-3 text-xs text-gray-400 mb-4">
+          <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500 mb-4">
             <time dateTime={post.date}>{post.date}</time>
             <span>·</span>
             <span>{post.readTime}</span>
+            {post.updatedDate && (
+              <span>{copy.updated} <time dateTime={post.updatedDate}>{post.updatedDate}</time></span>
+            )}
           </div>
 
           {/* Title */}
           <h1 className="text-2xl sm:text-3xl font-black text-gray-900 mb-6 leading-tight">
             {post.title}
           </h1>
+
+          <p className="text-sm text-gray-500 mb-6">
+            {copy.by}{" "}
+            <Link href={getLangPath(lang, "/about")} className="underline underline-offset-4">{SITE_NAME}</Link>
+          </p>
 
           {/* Excerpt / lead */}
           <p className="text-gray-500 text-base leading-relaxed border-l-4 border-gray-200 pl-4 mb-8 italic">
@@ -181,7 +201,21 @@ export default function BlogPostContent({ post, lang }: BlogPostContentProps) {
 
           {/* Body */}
           <div>{post.sections.map((section, i) => renderSection(section, i))}</div>
+          {post.sources && post.sources.length > 0 && (
+            <section className="mt-10 border-t border-gray-100 pt-6" aria-labelledby="article-sources">
+              <h2 id="article-sources" className="text-xl font-bold text-gray-900 mb-4">{copy.sources}</h2>
+              <ul className="list-disc pl-5 space-y-3 text-sm">
+                {post.sources.map((source) => (
+                  <li key={source.url}>
+                    <a href={source.url} className="text-blue-700 underline underline-offset-4 break-words hover:text-blue-900">{source.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
         </article>
+
+        <div className="mt-6"><GuideLinks lang={lang} currentSlug={post.slug} /></div>
 
         {/* Back link */}
         <div className="mt-6">

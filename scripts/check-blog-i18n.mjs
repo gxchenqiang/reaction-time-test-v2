@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 
-const localizedLangs = ["zh", "ko", "ja", "de", "fr"];
+const localizedLangs = ["zh", "ko", "ja", "de", "fr", "vi"];
 const slugs = [
   "what-is-reaction-time",
   "how-to-improve-reaction-time",
@@ -13,6 +13,7 @@ const slugs = [
   "gamers-vs-athletes-reaction-time",
   "caffeine-and-reaction-time",
   "sleep-deprivation-reaction-time",
+  "goalkeeper-reaction-time-vozinha-world-cup",
 ];
 
 const requiredFiles = [

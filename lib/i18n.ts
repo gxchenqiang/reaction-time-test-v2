@@ -1,4 +1,4 @@
-export const SUPPORTED_LANGS = ["en", "zh", "ko", "ja", "de", "fr"] as const;
+export const SUPPORTED_LANGS = ["en", "zh", "ko", "ja", "de", "fr", "vi"] as const;
 export type Lang = (typeof SUPPORTED_LANGS)[number];
 export const DEFAULT_LANG: Lang = "en";
 
@@ -13,6 +13,7 @@ export const LANG_LABELS: Record<Lang, string> = {
   ja: "日本語",
   de: "Deutsch",
   fr: "Français",
+  vi: "Tiếng Việt",
 };
 
 export const LANG_HREFLANG: Record<Lang, string> = {
@@ -22,6 +23,7 @@ export const LANG_HREFLANG: Record<Lang, string> = {
   ja: "ja",
   de: "de",
   fr: "fr",
+  vi: "vi",
 };
 
 export function getLangPath(lang: Lang, path: string = ""): string {

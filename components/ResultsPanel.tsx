@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { c } from "@/lib/challenge/strings";
-import { useRef } from "react";
+import { challengeStrings } from "@/lib/challenge/strings";
+import { useEffect, useRef } from "react";
 import { TestRound } from "@/lib/stats";
 import { Translations } from "@/lib/translations";
-import { Lang } from "@/lib/i18n";
+import { Lang, getLangPath } from "@/lib/i18n";
 
 interface ResultsPanelProps {
   t: Translations;
@@ -13,7 +13,6 @@ interface ResultsPanelProps {
   rounds: TestRound[];
   avg: number;
   best: number;
-  percentile: number;
   categoryLabel: string;
   categoryDesc: string;
   onPlayAgain: () => void;
@@ -26,17 +25,15 @@ function drawResultsCard(
   {
     avg,
     best,
-    percentile,
     categoryLabel,
     rounds,
-    msLabel,
+    t,
   }: {
     avg: number;
     best: number;
-    percentile: number;
     categoryLabel: string;
     rounds: TestRound[];
-    msLabel: string;
+    t: Translations;
   }
 ) {
   const W = 600;
@@ -47,6 +44,7 @@ function drawResultsCard(
   canvas.style.height = `${H}px`;
 
   const ctx = canvas.getContext("2d")!;
+  const msLabel = t.ms;
   ctx.scale(2, 2);
 
   // Background
@@ -64,7 +62,7 @@ function drawResultsCard(
   ctx.fillStyle = "#9ca3af";
   ctx.font = "bold 11px Inter, system-ui, sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText("YOUR TIME", W / 2, 28);
+  ctx.fillText(t.yourTime, W / 2, 28);
 
   // Banner: big time number
   ctx.fillStyle = "#ffffff";
@@ -113,7 +111,7 @@ function drawResultsCard(
   ctx.fillStyle = "#9ca3af";
   ctx.font = "bold 10px Inter, system-ui, sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText("BEST", W / 4, statsY + 24);
+  ctx.fillText(t.best, W / 4, statsY + 24);
   ctx.fillStyle = "#1f2937";
   ctx.font = "bold 30px Inter, system-ui, sans-serif";
   ctx.fillText(String(best), W / 4, statsY + 54);
@@ -124,7 +122,7 @@ function drawResultsCard(
   // AVERAGE
   ctx.fillStyle = "#9ca3af";
   ctx.font = "bold 10px Inter, system-ui, sans-serif";
-  ctx.fillText("AVERAGE", (3 * W) / 4, statsY + 24);
+  ctx.fillText(t.average, (3 * W) / 4, statsY + 24);
   ctx.fillStyle = "#1f2937";
   ctx.font = "bold 30px Inter, system-ui, sans-serif";
   ctx.fillText(String(avg), (3 * W) / 4, statsY + 54);
@@ -132,43 +130,21 @@ function drawResultsCard(
   ctx.font = "12px Inter, system-ui, sans-serif";
   ctx.fillText(msLabel, (3 * W) / 4, statsY + 70);
 
-  // Percentile bar
-  const barY = bannerH + statsH + 16;
-  const barX = 24;
-  const barW = W - 48;
-  const barH2 = 10;
-  const pct = Math.min(percentile, 99);
-
-  ctx.fillStyle = "#f3f4f6";
-  ctx.beginPath();
-  ctx.roundRect(barX, barY + 24, barW, barH2, 5);
-  ctx.fill();
-
-  ctx.fillStyle = "#22c55e";
-  ctx.beginPath();
-  ctx.roundRect(barX, barY + 24, (barW * pct) / 100, barH2, 5);
-  ctx.fill();
-
-  ctx.fillStyle = "#374151";
-  ctx.font = "bold 12px Inter, system-ui, sans-serif";
+  // Measurement context, rather than an unsupported population percentile.
+  const noteY = bannerH + statsH + 28;
+  ctx.fillStyle = "#6b7280";
+  ctx.font = "12px Inter, system-ui, sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText(`faster than ${percentile}% of people`, W / 2, barY + 18);
-
-  ctx.fillStyle = "#9ca3af";
-  ctx.font = "11px Inter, system-ui, sans-serif";
-  ctx.textAlign = "left";
-  ctx.fillText("0%", barX, barY + 50);
-  ctx.textAlign = "right";
-  ctx.fillText("100%", barX + barW, barY + 50);
+  ctx.fillText(t.resultCardNote, W / 2, noteY, W - 48);
 
   // Round breakdown
-  const roundsY = barY + 60;
+  const roundsY = noteY + 36;
   const slotW = (W - 48 - (rounds.length - 1) * 8) / rounds.length;
 
   ctx.fillStyle = "#9ca3af";
   ctx.font = "bold 10px Inter, system-ui, sans-serif";
   ctx.textAlign = "left";
-  ctx.fillText("ROUND BREAKDOWN", 24, roundsY);
+  ctx.fillText(t.roundBreakdown, 24, roundsY);
 
   rounds.forEach((r, i) => {
     const rx = 24 + i * (slotW + 8);
@@ -201,16 +177,17 @@ function drawResultsCard(
 }
 
 export default function ResultsPanel({
+  lang,
   t,
   rounds,
   avg,
   best,
-  percentile,
   categoryLabel,
   categoryDesc,
   onPlayAgain,
 }: ResultsPanelProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  useEffect(() => { cardRef.current?.focus({ preventScroll: true }); }, []);
 
   const handleTwitterShare = () => {
     const tweetText = t.shareText.replace("{time}", String(avg));
@@ -223,10 +200,9 @@ export default function ResultsPanel({
     drawResultsCard(canvas, {
       avg,
       best,
-      percentile,
       categoryLabel,
       rounds,
-      msLabel: t.ms,
+      t,
     });
 
     const filename = `reaction-time-${avg}ms.png`;
@@ -269,10 +245,8 @@ export default function ResultsPanel({
     }
   };
 
-  const percentileBar = Math.min(percentile, 99);
-
   return (
-    <div className="bg-white rounded-2xl shadow-lg overflow-hidden" ref={cardRef}>
+    <div className="bg-white rounded-2xl shadow-lg overflow-hidden" ref={cardRef} tabIndex={-1} role="region" aria-label={`${t.yourTime}: ${avg} ${t.ms}`}>
       {/* Top banner */}
       <div className="bg-gray-900 text-white p-6 text-center">
         <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">
@@ -304,27 +278,15 @@ export default function ResultsPanel({
         </div>
       </div>
 
-      {/* Percentile */}
+      {/* Measurement context */}
       <div className="p-6 border-b border-gray-100">
-        <div className="flex justify-between text-sm text-gray-500 mb-2">
-          <span>0%</span>
-          <span className="font-semibold text-gray-800">
-            {t.percentileText.replace("{pct}", String(percentile))}
-          </span>
-          <span>100%</span>
-        </div>
-        <div className="w-full bg-gray-100 rounded-full h-3">
-          <div
-            className="bg-green-500 h-3 rounded-full transition-all duration-1000"
-            style={{ width: `${percentileBar}%` }}
-          />
-        </div>
+        <p className="text-sm text-gray-500 leading-relaxed">{t.resultNote}</p>
       </div>
 
       {/* Round breakdown */}
       <div className="p-6 border-b border-gray-100">
         <p className="text-xs uppercase tracking-wide text-gray-400 mb-3">
-          {t.round} breakdown
+          {t.roundBreakdown}
         </p>
         <div className="flex gap-2 flex-wrap">
           {rounds.map((r, i) => (
@@ -340,7 +302,7 @@ export default function ResultsPanel({
         </div>
       </div>
 
-      <Link href="/challenge" className="block text-center m-6 challenge-primary">{c.practiceCTA}</Link>
+      <Link href={getLangPath(lang, "/challenge")} className="block text-center m-6 challenge-primary">{challengeStrings(lang).practiceCTA}</Link>
 
       {/* Actions */}
       <div className="p-6 flex flex-col gap-3">

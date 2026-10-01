@@ -459,3 +459,122 @@ test("Waiting durations include both configured endpoints, then commit signal in
     }
   }
 });
+
+test("All seven challenge dictionaries cover static and dynamic UI without English fallback", () => {
+  const { challengeStrings } = mod("strings");
+  const en = challengeStrings("en");
+  for (const lang of ["en", "zh", "ja", "ko", "de", "fr", "vi"]) {
+    const dictionary = challengeStrings(lang);
+    assert.deepEqual(Object.keys(dictionary).sort(), Object.keys(en).sort());
+    for (const [key, value] of Object.entries(dictionary)) {
+      assert.equal(typeof value, typeof en[key], `${lang}.${key}`);
+      if (typeof value === "string")
+        assert.ok(value.length > 0, `${lang}.${key}`);
+    }
+    for (const key of [
+      "title",
+      "start",
+      "retry",
+      "invalid",
+      "copy",
+      "noHits",
+    ]) {
+      if (lang !== "en")
+        assert.notEqual(dictionary[key], en[key], `${lang}.${key}`);
+    }
+    assert.ok(dictionary.invited("Alex").includes("Alex"));
+    assert.ok(dictionary.sendResult("Alex").includes("Alex"));
+    assert.ok(dictionary.correct(12, 20).includes("12"));
+    assert.equal(dictionary.ms(null), "—");
+    assert.ok(
+      dictionary
+        .ms(2480)
+        .includes(lang === "de" || lang === "fr" ? "248,0" : "248.0"),
+    );
+    for (const input of ["mouse", "keyboard", "touch", "pen", "mixed"]) {
+      if (lang !== "en")
+        assert.ok(!dictionary.input(input).includes(input), `${lang}.${input}`);
+    }
+  }
+});
+
+test("Localized invite and return links preserve protocol bytes, scoring and length limits", () => {
+  const score = advanced(999);
+  score.n = "😀".repeat(20);
+  score.i = "keyboard";
+  const result = {
+    ...invite("advanced", score),
+    kind: "result",
+    challenger: score,
+  };
+  for (const payload of [invite(), invite("advanced", score), result]) {
+    const token = encodeChallenge(payload);
+    for (const lang of ["en", "zh", "ja", "ko", "de", "fr", "vi"]) {
+      const url = new URL(
+        challengeUrl(payload, "https://reactiontimetestonline.com", lang),
+      );
+      assert.equal(
+        url.pathname,
+        lang === "en" ? "/challenge" : `/${lang}/challenge`,
+      );
+      assert.equal(url.hash, `#c=${token}`);
+      assert.deepEqual(parseHash(url.hash), payload);
+      assert.ok(url.href.length < 2000);
+    }
+  }
+});
+
+test("Native share uses selected language for title, text and the unchanged result", async () => {
+  const { challengeStrings } = mod("strings");
+  let data;
+  Object.defineProperty(globalThis, "navigator", {
+    configurable: true,
+    value: {
+      share: async (value) => {
+        data = value;
+      },
+    },
+  });
+  const payload = {
+    ...invite(),
+    kind: "result",
+    challenger: { ...classic([230, 240, 235, 245, 240]), n: "Sam" },
+  };
+  for (const lang of ["en", "zh", "ja", "ko", "de", "fr", "vi"]) {
+    const c = challengeStrings(lang);
+    const url = challengeUrl(
+      payload,
+      "https://reactiontimetestonline.com",
+      lang,
+    );
+    assert.equal(await nativeShare(url, payload, lang), "shareResolved");
+    assert.equal(data.title, c.shareTitle);
+    assert.equal(data.url, url);
+    assert.equal(data.text, shareText(payload, lang));
+    assert.ok(data.text.includes(c.ms(2380)) && data.text.includes(c.ms(2480)));
+    assert.ok(data.text.includes("Sam") && data.text.includes("Alex"));
+    assert.equal(shareText(invite(), lang), c.classicInvite(c.ms(2480)));
+    assert.equal(
+      shareText(invite("advanced", advanced()), lang),
+      c.advancedInvite(20, c.ms(2500)),
+    );
+  }
+});
+
+test("Classic green click and a second click during feedback do not become a false start", () => {
+  const { clock, game } = setup("classic");
+  hit(clock, game, 250);
+  assert.equal(game.state.phase, "feedback");
+  assert.equal(game.state.records.length, 1);
+  clock.tick(140);
+  game.down("p", "mouse");
+  game.up("p");
+  assert.equal(game.state.phase, "feedback");
+  assert.equal(game.state.records.length, 1);
+  clock.tick(310);
+  assert.equal(game.state.phase, "waiting");
+  game.down("p", "mouse");
+  assert.equal(game.state.phase, "invalid");
+  assert.equal(game.state.reason, "early");
+  assert.equal(game.state.records.length, 1);
+});

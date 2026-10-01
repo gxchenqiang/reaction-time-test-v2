@@ -1,4 +1,4 @@
-import { c } from "@/lib/challenge/strings";
+import LanguageLink from "./challenge/LanguageLink";
 import Link from "next/link";
 import { Lang, SUPPORTED_LANGS, LANG_LABELS, getLangPath } from "@/lib/i18n";
 import { Translations } from "@/lib/translations";
@@ -47,6 +47,11 @@ const FOOTER_COPY: Record<
     languages: "Langues",
     privacy: "Confidentialité",
   },
+  vi: {
+    navigation: "Điều hướng",
+    languages: "Ngôn ngữ",
+    privacy: "Quyền riêng tư",
+  },
 };
 
 export default function Footer({ t, lang, challenge = false }: FooterProps) {
@@ -62,7 +67,7 @@ export default function Footer({ t, lang, challenge = false }: FooterProps) {
             <p className="font-black text-gray-900 text-lg mb-2">
               Reaction Time Test
             </p>
-            <p className="text-sm text-gray-400">{t.footerTagline}</p>
+            <p className="text-sm text-gray-600">{t.footerTagline}</p>
           </div>
 
           {/* Navigation */}
@@ -80,7 +85,7 @@ export default function Footer({ t, lang, challenge = false }: FooterProps) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-gray-700 transition-colors"
+                    className="text-sm text-gray-600 hover:text-gray-700 transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -94,36 +99,33 @@ export default function Footer({ t, lang, challenge = false }: FooterProps) {
             <p className="font-semibold text-gray-600 text-sm uppercase tracking-wide mb-3">
               {copy.languages}
             </p>
-            {challenge ? (
-              <p className="text-sm text-gray-500">{c.english}</p>
-            ) : (
-              <ul className="space-y-2">
-                {SUPPORTED_LANGS.map((l) => (
-                  <li key={l}>
-                    <Link
-                      href={getLangPath(l, "")}
-                      className={`text-sm transition-colors ${
-                        l === lang
-                          ? "text-gray-900 font-semibold"
-                          : "text-gray-400 hover:text-gray-700"
-                      }`}
-                    >
-                      {LANG_LABELS[l]}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <ul className="space-y-2">
+              {SUPPORTED_LANGS.map((l) => (
+                <li key={l}>
+                  <LanguageLink
+                    lang={l}
+                    path={challenge ? "/challenge" : ""}
+                    className={`text-sm transition-colors ${
+                      l === lang
+                        ? "text-gray-900 font-semibold"
+                        : "text-gray-600 hover:text-gray-700"
+                    }`}
+                  >
+                    {LANG_LABELS[l]}
+                  </LanguageLink>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-200 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-gray-600">
             © {year} ReactionTimeTestOnline.com — {t.footerRights}
           </p>
-          <div className="flex gap-4 text-xs text-gray-400">
+          <div className="flex gap-4 text-xs text-gray-600">
             <Link
-              href={getLangPath(lang, "/about")}
+              href={getLangPath(lang, "/about#privacy")}
               className="hover:text-gray-600 transition-colors"
             >
               {copy.privacy}

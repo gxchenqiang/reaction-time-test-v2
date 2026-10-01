@@ -1,5 +1,7 @@
 # 朋友挑战交付说明
 
+> 2026-09-29：朋友挑战已补齐六种语言；本文件中的“暂只提供英文”记录为初版状态，最新说明见 [challenge-i18n.md](challenge-i18n.md)。
+
 依据 `/Users/a1-6/Downloads/reaction_time_friend_challenge_implementation.md`（2026-09-22）实现。
 
 ## 功能与集成
