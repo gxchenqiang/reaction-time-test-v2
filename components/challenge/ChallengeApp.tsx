@@ -32,7 +32,8 @@ import { challengeStrings } from "@/lib/challenge/strings";
 import { Lang, getLangPath, LANG_HREFLANG } from "@/lib/i18n";
 import Scoreboard from "./Scoreboard";
 import ResultComparison from "./ResultComparison";
-import SharePanel from "./SharePanel";
+import ChallengeShareControls from "./ChallengeShareControls";
+import ChallengeResultDialog from "./ChallengeResultDialog";
 
 const initial = (mode: Mode): State => ({
   mode,
@@ -56,8 +57,10 @@ export default function ChallengeApp({ lang }: { lang: Lang }) {
   const [history, setHistory] = useState<HistoryRun[]>([]);
   const [shareStatus, setShareStatus] = useState("");
   const [shared, setShared] = useState<Payload | null>(null);
+  const [resultOpen, setResultOpen] = useState(false);
   const engine = useRef<Engine | null>(null);
   const surface = useRef<HTMLDivElement>(null);
+  const retryButton = useRef<HTMLButtonElement>(null);
   const runId = useRef("");
   const stored = useRef("");
   const restoring = useRef<HistoryRun | null>(null);
@@ -67,6 +70,8 @@ export default function ChallengeApp({ lang }: { lang: Lang }) {
     engine.current?.abort();
     engine.current?.dispose();
     setShared(null);
+    setShareStatus("");
+    setResultOpen(false);
     setError(null);
     setNameError(false);
     try {
@@ -199,6 +204,10 @@ export default function ChallengeApp({ lang }: { lang: Lang }) {
         input: score.i,
       });
   }, [state, mode, name, target]);
+  useEffect(() => {
+    if (target && runId.current && ["completed", "invalid", "aborted"].includes(state.phase))
+      setResultOpen(true);
+  }, [state.phase, target]);
 
   function navigate(next?: Payload, nextMode: Mode = mode) {
     historyPush(
@@ -214,7 +223,10 @@ export default function ChallengeApp({ lang }: { lang: Lang }) {
     window.scrollTo({ top: 0, behavior: "instant" });
   }
   function start() {
+    flushSync(() => setResultOpen(false));
     setShared(null);
+    setShareStatus("");
+    setNameError(false);
     runId.current = createId();
     engine.current?.start();
     surface.current?.focus({ preventScroll: true });
@@ -223,6 +235,16 @@ export default function ChallengeApp({ lang }: { lang: Lang }) {
       rulesVersion: 1,
       entry: target ? "invite" : "solo",
     });
+  }
+  function dismissResult() {
+    flushSync(() => setResultOpen(false));
+    retryButton.current?.focus({ preventScroll: true });
+  }
+  function changeName(value: string) {
+    setName(value);
+    setShared(null);
+    setShareStatus("");
+    setNameError(false);
   }
   function restore(run: HistoryRun) {
     restoring.current = run;
@@ -501,7 +523,7 @@ export default function ChallengeApp({ lang }: { lang: Lang }) {
       </div>
       <p className="text-sm text-gray-600">{c.autoRounds}</p>
       {!playing && (
-        <button className="challenge-primary w-full" onClick={start}>
+        <button ref={retryButton} className="challenge-primary w-full" onClick={start}>
           {state.phase === "idle" ? (target ? c.start : c.startTest) : c.retry}
         </button>
       )}
@@ -535,56 +557,27 @@ export default function ChallengeApp({ lang }: { lang: Lang }) {
             <p className="text-xs text-gray-500">{c.input(current.i)}</p>
           </section>
           {canShare ? (
-            <>
-              <label className="block text-sm font-medium">
-                {c.nickname}
-                <input
-                  value={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    setShared(null);
-                    setNameError(false);
-                  }}
-                  className="block mt-1 w-full border border-gray-300 rounded-lg p-3"
-                  aria-describedby="name-help"
-                />
-              </label>
-              <p id="name-help" className="text-xs text-gray-500">
-                {c.nameHelp}
-              </p>
-              {nameError && (
-                <p role="alert" className="text-red-700 text-sm">
-                  {c.nameError}
-                </p>
-              )}
-              <div className="flex flex-wrap gap-2">
-                <button
-                  className="challenge-primary"
-                  onClick={() => generate(!!target)}
-                >
-                  {target ? c.sendResult(target.n) : c.challengeFriend}
-                </button>
-                {target && (
-                  <button
-                    className="challenge-secondary"
-                    onClick={() => generate(false)}
-                  >
-                    {c.another}
-                  </button>
-                )}
-              </div>
-              {shared && (
-                <SharePanel
-                  lang={lang}
-                  payload={shared}
-                  initialStatus={shareStatus}
-                />
-              )}
-            </>
+            <ChallengeShareControls
+              lang={lang} idPrefix="page" name={name} nameError={nameError}
+              target={target} shared={shared} shareStatus={shareStatus}
+              onNameChange={changeName} onGenerate={generate}
+            />
           ) : (
             <p>{c.noHits}</p>
           )}
         </div>
+      )}
+      {resultOpen && target && !playing && (
+        <ChallengeResultDialog
+          lang={lang} mode={mode} target={target} current={current} state={state}
+          canShare={canShare} onDismiss={dismissResult} onRetry={start}
+        >
+          <ChallengeShareControls
+            lang={lang} idPrefix="dialog" name={name} nameError={nameError}
+            target={target} shared={shared} shareStatus={shareStatus}
+            onNameChange={changeName} onGenerate={generate}
+          />
+        </ChallengeResultDialog>
       )}
       {storageError && (
         <p role="status" className="text-xs text-gray-500">

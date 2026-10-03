@@ -67,9 +67,10 @@ await p.waitForFunction(
   undefined,
   { timeout: 60000 },
 );
-await p.fill("input", "Sam");
+await p.waitForSelector('dialog[open]');
+await p.fill("dialog input", "Sam");
 await p.click(
-  'loc=css:button:text-is("Send result to ' + fixture.target.n + '")',
+  'loc=css:dialog button:text-is("Send result to ' + fixture.target.n + '")',
 );
 const fs = await import("node:fs/promises");
 await fs.writeFile(

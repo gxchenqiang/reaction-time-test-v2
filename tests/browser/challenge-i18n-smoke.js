@@ -102,8 +102,9 @@ for (let i = 0; i < 5; i++) {
   );
   await p.keyboard.press("Space");
 }
-await p.fill("main input", "小明");
-await p.click('text="把结果发给 Alex"');
+await p.waitForSelector('dialog[open]');
+await p.fill("dialog input", "小明");
+await p.click('loc=css:dialog button:text-is("把结果发给 Alex")');
 const share = await p.evaluate(() => window.rttShareData);
 assert.equal(share.title, "反应速度挑战");
 assert.ok(share.text.includes("轮到你了"));

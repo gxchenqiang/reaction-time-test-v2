@@ -1,5 +1,16 @@
 # 朋友挑战交付说明
 
+## 2026-10-03：挑战结果弹窗
+
+- 新完成的好友挑战自动显示成功、失败或平局弹窗，沿用经典速度比较和进阶准确率优先规则。
+- 抢跑、超时、中断和进阶模式没有成功点击绿色时单独提示，不分享无效或无法计分的成绩。
+- 弹窗支持修改昵称、把双方结果发回好友、用自己的成绩邀请另一位好友，以及立即重试。关闭后页面保留结果和分享入口；修改昵称不会再次弹出。
+- 新文案覆盖英文、中文、日文、韩文、德文、法文和越南文。使用原生模态 dialog，补充 Tab 首尾循环、Escape 关闭、焦点恢复和窄屏内部滚动。
+- `ChallengeResultDialog.tsx` 负责呈现和键盘交互，`ChallengeShareControls.tsx` 复用页面与弹窗中的昵称和分享控件，`ChallengeApp.tsx` 管理每局弹出与重试。
+- 设计和实施步骤见 `docs/superpowers/specs/2026-10-03-challenge-result-dialog-{design,plan}.md`；新增浏览器回归脚本为 `tests/browser/challenge-result-dialog.js`。
+- 验证：25 组挑战测试通过；lint、TypeScript、生产构建（90 个静态页面）、博客翻译检查、SEO 内容检查和 diff 空白检查通过。
+- 浏览器验证了真实空格键完成的中文成功弹窗，以及确定性反应时钟下的成功／失败／平局、昵称校验、两种分享 payload、分享取消／失败与手动复制、Tab 循环、Escape／关闭／重试、七种语言的无效提示、360／390 宽度和长昵称；进阶模式实际跑满 20 轮，验证无绿色点击不可分享，以及正确轮数优先于反应速度。原生分享通过 API 模拟，未向任何人发送消息；未验证真实手机和 Safari／Firefox，未部署生产。
+
 > 2026-09-29：朋友挑战已补齐六种语言；本文件中的“暂只提供英文”记录为初版状态，最新说明见 [challenge-i18n.md](challenge-i18n.md)。
 
 依据 `/Users/a1-6/Downloads/reaction_time_friend_challenge_implementation.md`（2026-09-22）实现。
